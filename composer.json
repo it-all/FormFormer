@@ -1,0 +1,12 @@
+{
+  "name": "It-All/FormFormer",
+  "description": "HTML Form Creation Tool",
+  "require": {
+    "php": ">=7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "It_All\\FormFormer\\":"classes/"
+    }
+  }
+}

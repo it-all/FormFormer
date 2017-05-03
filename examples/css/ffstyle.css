@@ -1,0 +1,38 @@
+body {
+    background-color: #06141b;
+    color: mintcream;
+}
+form {
+    padding: 2em;
+    border: .1em solid yellow;
+}
+.ffGroupWrapper {
+    padding: .3em;
+    border: .1em dashed green;
+    border-spacing: .2em;
+}
+.ffFieldWrapper {
+    padding: .3em;
+}
+.ffHtmlWrapper {
+    margin-left: 1em;
+}
+label {
+    padding-right: .2em;
+}
+.ffFieldLabelFine {
+    font-size: .8em;
+}
+#ffFormError {
+    color: red;
+}
+.ffFieldError {
+    border: .2em solid red;
+}
+.ffErrorMsg {
+    color: red;
+}
+a {
+    text-decoration: none;
+    color: aqua;
+}
