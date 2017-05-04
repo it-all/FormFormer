@@ -82,11 +82,13 @@ class Field extends FieldFieldGroup
 
     /**
      * @param $value do not type hint as some fields will send strings and others floats or ints.
+     * this is simply an attribute, not a field property
+     * cannot trim as can only trim strings
      * @return $this
      */
     public function value($value)
     {
-        $this->setValue($value);
+        $this->setAttribute('value', $value);
         return $this;
     }
 
@@ -140,13 +142,6 @@ class Field extends FieldFieldGroup
             return $this->attributes['name'];
         }
         return null;
-    }
-
-    // do not type hint as fields may send string/int/float
-    // cannot trim as can only trim strings
-    protected function setValue($value)
-    {
-        $this->setAttribute('value', $value);
     }
 
     public function getValue()

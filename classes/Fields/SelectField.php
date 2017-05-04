@@ -9,42 +9,55 @@ use It_All\FormFormer\Form;
 class SelectField extends Field
 {
     protected $tag = 'select';
-    private $options;
-    private $selectedOptionValue = false;
 
-    private function setOptions(array $options)
-    {
-        $this->options = $options;
-    }
+    /** @var array [val1 => text1, ...] */
+    private $options = [];
+
+    private $placeholder;
+
+    private $selectedOptionValue = false;
 
     public function options(array $options)
     {
-        $this->setOptions($options);
+        $this->options = $options;
         return $this;
     }
 
+    /**
+     * @param string $selectedValue
+     * @return $this
+     * note, this overrides any placeholder
+     */
     public function sel(string $selectedValue)
     {
         $this->selectedOptionValue = $selectedValue;
         return $this;
     }
 
-    public function setValue($value)
+    /**
+     * @param string $placeholder
+     * @return $this
+     * @throws \Exception
+     */
+    public function placeholder(string $placeholder)
     {
-        $this->selectedOptionValue = $value;
-    }
-
-    public function getValue()
-    {
-        return $this->selectedOptionValue;
-    }
-
-    private function isOptionSelected(string $optionValue): bool
-    {
-        if ($this->selectedOptionValue !== false && $this->selectedOptionValue == $optionValue) {
-            return true;
+        if (count($this->options) == 0) {
+            throw new \Exception('Options must be set before placeholder in select field '.$this->getName());
         }
-        return false;
+        $this->placeholder = $placeholder;
+        return $this;
+    }
+
+    /**
+     * @param string $optionText
+     * @param string $optionValue
+     * @param string $attributes must be passed with a leading space ie " disabled";
+     * @return string
+     */
+    private function getOption(string $optionText, string $optionValue, string $attributes = ''): string
+    {
+        $selected = $this->getSelectedOptionAttribute($optionValue);
+        return "<option value='$optionValue'$selected$attributes>$optionText</option>";
     }
 
     private function getSelectedOptionAttribute(string $optionValue): string
@@ -55,10 +68,12 @@ class SelectField extends Field
         return "";
     }
 
-    private function getOption(string $optionText, string $optionValue): string
+    private function isOptionSelected(string $optionValue): bool
     {
-        $selected = $this->getSelectedOptionAttribute($optionValue);
-        return "<option value='$optionValue'$selected>$optionText</option>";
+        if ($this->selectedOptionValue !== false && $this->selectedOptionValue == $optionValue) {
+            return true;
+        }
+        return false;
     }
 
     private function getOptionsHTML()
@@ -75,6 +90,9 @@ class SelectField extends Field
                 }
             }
         } else {
+            if (isset($this->placeholder)) {
+                $html .= $this->getOption($this->placeholder, '', ' disabled selected');
+            }
             foreach ($this->options as $option_value => $option_text) {
                 $html .= $this->getOption((string) $option_text, (string) $option_value);
             }
@@ -84,6 +102,9 @@ class SelectField extends Field
 
     public function generate(): string
     {
+        if (count($this->options) == 0) {
+            throw new \Exception('No options in select field '.$this->getName());
+        }
         return parent::generate(true, true, true, true, true, $this->getOptionsHTML());
     }
 }
