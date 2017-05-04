@@ -4,27 +4,21 @@ declare(strict_types=1);
 namespace It_All\FormFormer\Fields;
 
 use It_All\FormFormer\Field;
-use It_All\FormFormer\Form;
 
 class TextareaField extends Field
 {
     protected $tag = 'textarea';
-    private $value;
+    private $value = '';
 
-    function __construct(array $fieldInfo)
-    {
-        parent::__construct($fieldInfo);
-        if (isset($fieldInfo['value'])) {
-            $this->value = $fieldInfo['value'];
-            $this->initialValue = $fieldInfo['value'];
-        } else {
-            $this->value = null;
-        }
-    }
-
-    public function setValue($value)
+    /**
+     * @param $value
+     * @return $this
+     * overrides Field::value to set property instead of attribute
+     */
+    public function value($value)
     {
         $this->value = $value;
+        return $this;
     }
 
     public function getValue()
