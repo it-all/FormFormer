@@ -23,6 +23,11 @@ class SelectField extends Field
         return $this;
     }
 
+    public function addOption(string $text, $value)
+    {
+        $this->options[$value] = $text;
+    }
+
     /**
      * @param string $selectedValue
      * @return $this
