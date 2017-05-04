@@ -1,6 +1,6 @@
 {
   "name": "It-All/FormFormer",
-  "description": "HTML Form Creation Tool",
+  "description": "HTML5 Form Creation Tool",
   "require": {
     "php": ">=7.0"
   },

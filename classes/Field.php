@@ -168,11 +168,15 @@ class Field extends FieldFieldGroup
     public function generate(bool $showLabel = true, bool $showReqdOpt = true, bool $showErrorMsg = true, bool $showDescriptor = true, bool $divWrap = true, string $content = '', string $postFieldContent = '')
     {
         $html = "";
-        if ($showLabel) {
-            $html .= $this->generateLabel();
-        }
-        if ($showReqdOpt) {
-            $html .= $this->generateReqdOpt();
+        if ($showLabel || $showReqdOpt) {
+            $html .= "<div class='ffLabelDiv'>";
+            if ($showLabel) {
+                $html .= $this->generateLabel();
+            }
+            if ($showReqdOpt) {
+                $html .= $this->generateReqdOpt();
+            }
+            $html .= "</div>";
         }
         if ($showErrorMsg) {
             $html .= $this->generateErrorMsg();

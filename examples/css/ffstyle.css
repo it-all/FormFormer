@@ -17,10 +17,8 @@ form {
 .ffHtmlWrapper {
     margin-left: 1em;
 }
-label {
-    padding-right: .2em;
-}
 .ffFieldLabelFine {
+    padding-left: 1em;
     font-size: .8em;
 }
 #ffFormError {
