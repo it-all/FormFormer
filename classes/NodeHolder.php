@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace It_All\FormFormer;
 use It_All\FormFormer\Factories\FieldFactory;
 use It_All\FormFormer\Factories\FieldGroupFactory;
+use It_All\FormFormer\Fields\SelectField;
 
 /**
 * nodes are the building blocks of forms (and other NodeHolders --> Fieldsets)
@@ -54,9 +55,21 @@ abstract class NodeHolder
         return $fg;
     }
 
-    public function addField(string $tag = 'input', array $attributes = [], string $label = '', string $descriptor = '')
+    public function addFieldObjet(Field $field)
     {
-        $field = FieldFactory::create(trim($tag), $attributes, trim($label), trim($descriptor));
+        $this->nodes[] = $field;
+    }
+
+    public function addSelectField(array $options, string $selectedOptionValue = null, string $placeholder = null, array $attributes = [], string $label = '', string $descriptor = '')
+    {
+        $selectField = new SelectField($options, $selectedOptionValue, $placeholder, $attributes, $label, $descriptor);
+    }
+
+    public function addField(string $tag = 'input', array $attributes = [], string $label = '', string $descriptor = '', array $customFieldSettings = [])
+    {
+//        $factoryClass = "It_All\\FormFormer\\Factories\\".ucwords($tag)."FieldFactory";
+//        $field = $factoryClass::create($attributes, trim($label), trim($descriptor), $customFieldSettings);
+        $field = FieldFactory::create($tag, $attributes, trim($label), trim($descriptor), $customFieldSettings);
         $this->nodes[] = $field;
         return $field;
     }

@@ -18,6 +18,7 @@ $form = new Form($formAttributes);
 //hidden
 $form->field('input', 'hidden')->name('theNumber')->value('6');
 
+
 // defaults to text input
 $form->field();
 
@@ -104,6 +105,9 @@ $form->field('input', 'submit')->value('An Input Submit Field');
 
 // SELECT FIELDS
 $form->field('select', '')->options(['val1' => 'opt1', 'val2' => 'opt2', 'val3' => 'opt3'])->placeholder('select one')->label('Select')->attr('placeholder', 'test pl')->sel('val2');
+
+// or
+$form->addField('select', [], '', '', ['options' => ['val1' => 'opt1', 'val2' => 'opt2', 'val3' => 'opt3'], 'selectedOptionValue' => 'val2']);
 
 $options = [
     'optgroups' => [

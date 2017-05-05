@@ -8,9 +8,20 @@ use It_All\FormFormer\Field;
 class TextareaField extends Field
 {
     protected $tag = 'textarea';
-    private $value = '';
+    protected $value;
+
+    function __construct(array $attributes = [], string $label = '', string $descriptor = '', array $customFieldSettings = [])
+    {
+        if (isset($customFieldSettings['value'])) {
+            $this->value = $customFieldSettings['value'];
+        } else {
+            $this->value = '';
+        }
+        parent::__construct($attributes, $label, $descriptor);
+    }
 
     /**
+     * chaining method
      * @param $value
      * @return $this
      * overrides Field::value to set property instead of attribute

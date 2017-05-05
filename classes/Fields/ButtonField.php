@@ -12,19 +12,27 @@ class ButtonField extends Field
 
     private $content;
 
-    private function setContent(string $content)
+    function __construct(array $attributes = [], string $label = '', string $descriptor = '', array $customFieldSettings = [])
     {
-        $this->content = $content;
+        if (isset($customFieldSettings['content'])) {
+            $this->content = $customFieldSettings['content'];
+        } else {
+            $this->content = '';
+        }
+        parent::__construct($attributes, $label, $descriptor);
     }
 
     public function content(string $content)
     {
-        $this->setContent(trim($content));
+        $this->content = trim($content);
         return $this;
     }
 
     public function generate(): string
     {
+        if (strlen($this->content) == 0) {
+            throw new \Exception('No content in button field '.$this->getName());
+        }
         return parent::generate(true, false, false, true, true, $this->content);
     }
 }

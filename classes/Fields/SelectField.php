@@ -4,18 +4,37 @@ declare(strict_types=1);
 namespace It_All\FormFormer\Fields;
 
 use It_All\FormFormer\Field;
-use It_All\FormFormer\Form;
 
 class SelectField extends Field
 {
     protected $tag = 'select';
 
     /** @var array [val1 => text1, ...] */
-    private $options = [];
+    private $options;
 
     private $placeholder;
 
-    private $selectedOptionValue = false;
+    private $selectedOptionValue;
+
+    function __construct(array $attributes = [], string $label = '', string $descriptor = '', array $customFieldSettings = [])
+    {
+        if (isset($customFieldSettings['options'])) {
+            $this->options = $customFieldSettings['options'];
+        } else {
+            $this->options = [];
+        }
+        if (isset($customFieldSettings['selectedOptionValue'])) {
+            $this->selectedOptionValue = $customFieldSettings['selectedOptionValue'];
+        } else {
+            $this->selectedOptionValue = null;
+        }
+        if (isset($customFieldSettings['placeholder'])) {
+            $this->placeholder = $customFieldSettings['placeholder'];
+        } else {
+            $this->placeholder = null;
+        }
+        parent::__construct($attributes, $label, $descriptor);
+    }
 
     public function options(array $options)
     {
@@ -23,15 +42,15 @@ class SelectField extends Field
         return $this;
     }
 
-    public function addOption(string $text, $value)
+    public function option(string $text, $value)
     {
         $this->options[$value] = $text;
+        return $this;
     }
 
     /**
      * @param string $selectedValue
      * @return $this
-     * note, this overrides any placeholder
      */
     public function sel(string $selectedValue)
     {
@@ -59,7 +78,7 @@ class SelectField extends Field
      * @param string $attributes must be passed with a leading space ie " disabled";
      * @return string
      */
-    private function getOption(string $optionText, string $optionValue, string $attributes = ''): string
+    private function getOptionHTML(string $optionText, string $optionValue, string $attributes = ''): string
     {
         $selected = $this->getSelectedOptionAttribute($optionValue);
         return "<option value='$optionValue'$selected$attributes>$optionText</option>";
@@ -75,7 +94,7 @@ class SelectField extends Field
 
     private function isOptionSelected(string $optionValue): bool
     {
-        if ($this->selectedOptionValue !== false && $this->selectedOptionValue == $optionValue) {
+        if ($this->selectedOptionValue !== null && $this->selectedOptionValue == $optionValue) {
             return true;
         }
         return false;
@@ -89,17 +108,17 @@ class SelectField extends Field
                 foreach ($optgroups as $optgroupName => $optgroupOptions) {
                     $html .= "<optgroup label='$optgroupName'>";
                     foreach ($optgroupOptions as $val => $opt) {
-                        $html .= $this->getOption($opt, $val);
+                        $html .= $this->getOptionHTML($opt, $val);
                     }
                     $html .= "</optgroup>";
                 }
             }
         } else {
-            if (isset($this->placeholder)) {
-                $html .= $this->getOption($this->placeholder, '', ' disabled selected');
+            if ($this->placeholder !== null) {
+                $html .= $this->getOptionHTML($this->placeholder, '', ' disabled selected');
             }
             foreach ($this->options as $option_value => $option_text) {
-                $html .= $this->getOption((string) $option_text, (string) $option_value);
+                $html .= $this->getOptionHTML((string) $option_text, (string) $option_value);
             }
         }
         return $html;
