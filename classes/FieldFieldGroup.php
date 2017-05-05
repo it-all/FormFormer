@@ -6,7 +6,7 @@ namespace It_All\FormFormer;
 abstract class FieldFieldGroup
 {
     /** @var bool defaults to false. */
-    protected $required = false;
+    protected $required;
 
     /** @var string used also to test ffg error condition */
     protected $errorMsg = "";
@@ -14,12 +14,7 @@ abstract class FieldFieldGroup
     /** @var string output just above each field */
     protected $descriptor = "";
 
-    public function setRequired(bool $is)
-    {
-        $this->required = $is;
-    }
-
-    public function isRequired()
+    public function isRequired(): bool
     {
         return $this->required;
     }
@@ -99,4 +94,5 @@ abstract class FieldFieldGroup
     abstract public function getName();
 
     abstract protected function generate();
+
 }

@@ -26,9 +26,7 @@ $form->field();
 $form->field('input', '');
 
 //text
-$form->field()->name('customer')->label('Name')->attr('required');
-
-//$form->setFfgError($form->findFieldByName('customer'), 'test error msg');
+$f1 = $form->field()->name('customer')->label('Name')->attr('required');
 
 // email
 $form->field('input', 'email')->name('email')->label('Email')->id('e')->attr('required')->value('controlio@it-all.com');

@@ -20,7 +20,11 @@ class Field extends FieldFieldGroup
 
     function __construct(array $attributes = [], string $label = '', string $descriptor = '')
     {
-        $this->attributes = $attributes;
+        $this->attributes = [];
+        // important to not just assign $this->attributes since the required attribute will set the required property
+        foreach ($attributes as $aName => $aVal) {
+            $this->setAttribute($aName, $aVal);
+        }
         $this->label = $label;
         $this->descriptor = $descriptor;
     }
@@ -109,7 +113,7 @@ class Field extends FieldFieldGroup
     {
         $this->attributes[$attributeName] = $attributeValue;
         if ($attributeName == 'required') {
-            $this->setRequired(true);
+            $this->required = true;
         }
     }
 
@@ -125,6 +129,9 @@ class Field extends FieldFieldGroup
     {
         if (isset($this->attributes[$attributeName])) {
             unset($this->attributes[$attributeName]);
+            if ($attributeName == 'required') {
+                $this->required = false;
+            }
         }
     }
 
@@ -167,6 +174,9 @@ class Field extends FieldFieldGroup
 
     public function generate(bool $showLabel = true, bool $showReqdOpt = true, bool $showErrorMsg = true, bool $showDescriptor = true, bool $divWrap = true, string $content = '', string $postFieldContent = '')
     {
+        echo '<pre>';
+        var_dump($this);
+        echo '</pre><br><br>';
         $html = "";
         if ($showLabel || $showReqdOpt) {
             $html .= "<div class='ffLabelDiv'>";
