@@ -48,21 +48,11 @@ abstract class NodeHolder
         $this->nodes[] = $html;
     }
 
-    public function addFieldGroup(string $type, string $name, string $label = '', string $descriptor = '', bool $required = false)
+    public function addFieldGroup(string $type, string $name, string $label = '', string $descriptor = '', bool $required = false, array $customFieldSettings = [])
     {
-        $fg = FieldGroupFactory::create(trim($type), trim($name), trim($label), trim($descriptor), $required);
+        $fg = FieldGroupFactory::create(trim($type), trim($name), trim($label), trim($descriptor), $required, $customFieldSettings);
         $this->nodes[] = $fg;
         return $fg;
-    }
-
-    public function addFieldObjet(Field $field)
-    {
-        $this->nodes[] = $field;
-    }
-
-    public function addSelectField(array $options, string $selectedOptionValue = null, string $placeholder = null, array $attributes = [], string $label = '', string $descriptor = '')
-    {
-        $selectField = new SelectField($options, $selectedOptionValue, $placeholder, $attributes, $label, $descriptor);
     }
 
     public function addField(string $tag = 'input', array $attributes = [], string $label = '', string $descriptor = '', array $customFieldSettings = [])

@@ -150,13 +150,19 @@ $form->field('output', '')->name('out')->label('Output')->forattr('a b');
 
 // radio - only 1 can be checked, though this won't throw an error, only the last will be checked
 // no need for [] after the name as only 1 value can be checked and therefore received upon submission
-$form->addFieldGroup('radio', 'rg1','Radio Group', '', true)->choices(['one' => 1, 'two' => [2, true], 'three' => [3, true]]);
+$form->addFieldGroup('radio', 'rg1','Radio Group', '', true)->setChoices(['one' => 1, 'two' => [2, true], 'three' => [3, true]]);
+
+// or
+$form->addFieldGroup('radio', 'rg2','Radio Group', '', true, ['choices' => ['one' => 1, 'two' => [2, true], 'three' => [3, true]]]);
 
 // checkbox
-$form->addFieldGroup('checkbox', 'cg1[]','Checkbox Group')->choices(['one' => [1, true], 'two' => [2, true], 'three' => 3]);
+$form->addFieldGroup('checkbox', 'cg1[]','Checkbox Group')->setChoices(['one' => [1, true], 'two' => [2, true], 'three' => 3]);
 
 // files
 $form->addFieldGroup('file', 'fg1[]','File Group')->num(4);
+
+// or
+$form->addFieldGroup('file', 'fg2[]','File Group', '', false, ['num' => 3]);
 
 //END GROUP FIELDS
 //////////////////////////

@@ -20,13 +20,13 @@ abstract class FieldGroup extends FieldFieldGroup {
     /** @var  array of field objects belonging to group */
     protected $fields;
 
-    function __construct(string $type, string $name, string $label = '', string $descriptor = '', bool $required = false)
+    function __construct(string $name, string $label = '', string $descriptor = '', bool $required = false)
     {
-        $this->type = $type;
         $this->name = $name;
         $this->label = $label;
         $this->descriptor = $descriptor;
         $this->required = $required;
+        $this->fields = [];
     }
 
     public function getName(): string
@@ -57,6 +57,9 @@ abstract class FieldGroup extends FieldFieldGroup {
     /** can possibly add another form variable such as $divWrapFieldGroups instead of the arg. not sure you'd ever want to not wrap fgs */
     public function generate($divWrap = true): string
     {
+        if (count($this->fields) == 0) {
+            throw new \Exception('No fields in field group '.$this->getName());
+        }
         $html = $this->generateHeaderText();
         $html .= $this->generateReqdOpt();
         $html .= $this->generateErrorMsg();

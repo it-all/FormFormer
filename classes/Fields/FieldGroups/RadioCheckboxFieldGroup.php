@@ -11,6 +11,14 @@ abstract class RadioCheckboxFieldGroup extends FieldGroup
     private $choices;
     private $choicesChecked = [];
 
+    function __construct(string $name, string $label = '', string $descriptor = '', bool $required = false, array $customSettings = [])
+    {
+        parent::__construct($name, $label, $descriptor, $required);
+        if (isset($customSettings['choices'])) {
+            $this->setChoices($customSettings['choices']);
+        }
+    }
+
     /**
      * @param array $choicesIn
      * either [choiceText => choiceValue, ...]
@@ -18,7 +26,7 @@ abstract class RadioCheckboxFieldGroup extends FieldGroup
      * note only 1 can be checked in the field group but not validating for more than one checked here
      * @return $this
      */
-    public function choices(array $choicesIn)
+    public function setChoices(array $choicesIn)
     {
         $choices = [];
         $checkedChoices = [];
@@ -34,21 +42,10 @@ abstract class RadioCheckboxFieldGroup extends FieldGroup
             $choices[$choiceText] = $choiceValue;
         }
         if (count($checkedChoices) > 0) {
-            $this->setChoicesChecked($checkedChoices);
+            $this->choicesChecked = $checkedChoices;
         }
-        $this->setChoices($choices);
-        return $this;
-    }
-
-    private function setChoices(array $choices)
-    {
         $this->choices = $choices;
         $this->addFields();
-    }
-
-    private function setChoicesChecked(array $choicesChecked)
-    {
-        $this->choicesChecked = $choicesChecked;
         return $this;
     }
 

@@ -6,7 +6,7 @@ namespace It_All\FormFormer\Factories;
 class FieldGroupFactory
 {
 
-    public static function create(string $type, string $name, string $label = '', string $descriptor = '', bool $required = false)
+    public static function create(string $type, string $name, string $label = '', string $descriptor = '', bool $required = false, array $customFieldSettings = [])
     {
         $validTypes = array('checkbox', 'file', 'radio');
         if (!in_array($type, $validTypes)) {
@@ -14,7 +14,7 @@ class FieldGroupFactory
         }
         $classname = ucwords($type).'FieldGroup';
         $namespaceClass = "It_All\\FormFormer\\Fields\\FieldGroups\\".$classname;
-        $fieldGroup = new $namespaceClass($type, $name, $label, $descriptor, $required);
+        $fieldGroup = new $namespaceClass($name, $label, $descriptor, $required, $customFieldSettings);
         return $fieldGroup;
     }
 }
