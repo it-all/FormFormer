@@ -13,7 +13,7 @@ class TextareaField extends Field
     function __construct(array $attributes = [], string $label = '', string $descriptor = '', array $customFieldSettings = [])
     {
         if (isset($customFieldSettings['value'])) {
-            $this->value = $customFieldSettings['value'];
+            $this->value = (string) $customFieldSettings['value'];
         } else {
             $this->value = '';
         }
@@ -28,7 +28,7 @@ class TextareaField extends Field
      */
     public function value($value)
     {
-        $this->value = $value;
+        $this->value = (string) $value;
         return $this;
     }
 
