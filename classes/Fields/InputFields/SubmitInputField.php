@@ -5,6 +5,8 @@ namespace It_All\FormFormer\Fields\InputFields;
 
 class SubmitInputField extends \It_All\FormFormer\Fields\InputField
 {
+    protected $type = 'submit';
+
     function __construct(array $attributes = [], string $label = '', string $descriptor = '')
     {
         if (!isset($attributes['value'])) {

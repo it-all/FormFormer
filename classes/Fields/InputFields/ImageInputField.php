@@ -12,6 +12,8 @@ namespace It_All\FormFormer\Fields\InputFields;
  */
 class ImageInputField extends \It_All\FormFormer\Fields\InputField
 {
+    protected $type = 'image';
+
     public function generate(bool $showLabel = false, bool $showReqdOpt = false, bool $showErrorMsg = false, bool $showDescriptor = false, bool $divWrap = true, bool $endWrapperDiv = true): string
     {
         if (!($this->getAttributeByName('src'))) {

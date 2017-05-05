@@ -3,4 +3,7 @@ declare(strict_types=1);
 
 namespace It_All\FormFormer\Fields\InputFields;
 
-class PasswordInputField extends \It_All\FormFormer\Fields\InputField {}
+class PasswordInputField extends \It_All\FormFormer\Fields\InputField
+{
+    protected $type = 'password';
+}

@@ -174,9 +174,7 @@ class Field extends FieldFieldGroup
 
     public function generate(bool $showLabel = true, bool $showReqdOpt = true, bool $showErrorMsg = true, bool $showDescriptor = true, bool $divWrap = true, string $content = '', string $postFieldContent = '')
     {
-        echo '<pre>';
-        var_dump($this);
-        echo '</pre><br><br>';
+//        echo '<pre>';var_dump($this);echo '</pre><br><br>';
         $html = "";
         if ($showLabel || $showReqdOpt) {
             $html .= "<div class='ffLabelDiv'>";
