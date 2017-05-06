@@ -33,6 +33,6 @@ class ButtonField extends Field
         if (strlen($this->content) == 0) {
             throw new \Exception('No content in button field '.$this->getName());
         }
-        return parent::generate(true, false, false, true, true, $this->content);
+        return parent::generate(true, false, false, true, true, $this->content, true);
     }
 }

@@ -33,6 +33,6 @@ class RadioCheckboxInputField extends \It_All\FormFormer\Fields\InputField
 
     public function generate(): string
     {
-        return parent::generate(true, true, true, true, true, "", $this->text);
+        return parent::generate(true, true, true, true, true, "", false, $this->text);
     }
 }

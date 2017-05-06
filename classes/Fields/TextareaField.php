@@ -39,6 +39,6 @@ class TextareaField extends Field
 
     public function generate(): string
     {
-        return parent::generate(true, true, true, true, true, $this->value);
+        return parent::generate(true, true, true, true, true, $this->value, true);
     }
 }

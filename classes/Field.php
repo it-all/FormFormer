@@ -172,7 +172,7 @@ class Field extends FieldFieldGroup
         return "";
     }
 
-    public function generate(bool $showLabel = true, bool $showReqdOpt = true, bool $showErrorMsg = true, bool $showDescriptor = true, bool $divWrap = true, string $content = '', string $postFieldContent = '')
+    public function generate(bool $showLabel = true, bool $showReqdOpt = true, bool $showErrorMsg = true, bool $showDescriptor = true, bool $divWrap = true, string $content = '', bool $endTag = false, string $postFieldContent = '')
     {
 //        echo '<pre>';var_dump($this);echo '</pre><br><br>';
         $html = "";
@@ -195,6 +195,8 @@ class Field extends FieldFieldGroup
         $html .= "<".$this->tag.Helper::generateTagAttributes($this->attributes).">";
         if (strlen($content) > 0) {
             $html .= $content;
+        }
+        if ($endTag) {
             $html .= "</".$this->tag.">";
         }
         if (Form::$divWrapFields && $divWrap) {

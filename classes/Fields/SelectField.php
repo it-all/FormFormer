@@ -129,6 +129,6 @@ class SelectField extends Field
         if (count($this->options) == 0) {
             throw new \Exception('No options in select field '.$this->getName());
         }
-        return parent::generate(true, true, true, true, true, $this->getOptionsHTML());
+        return parent::generate(true, true, true, true, true, $this->getOptionsHTML(), true);
     }
 }
