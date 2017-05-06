@@ -9,7 +9,7 @@ use It_All\FormFormer\Form;
 arrayProtectRecursive($_POST);
 
 // fieldset example
-$form = new Form(['method' => 'post']);
+$form = new Form(['method' => 'post'], 'verbose');
 $fs = $form->addFieldset()->legend('Registration');
 
 $nameField = $fs->field()->name('name')->label('Name')->attr('required');
@@ -28,8 +28,10 @@ $fs->addField('input', $patternField['attributes'], $patternField['label']);
 $fs->field('input', 'submit')->name('sub')->value('Go!');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-   if (preg_match('/^[0-9]*/', $_POST['name'])) {
+   if (preg_match('/.[0-9]/', $_POST['name'])) {
        echo 'number in name';
+       $form->setError($nameField, 'number in name');
+//       $nameField->setErrorMsg('number in name');
     }
     $nameField->value($_POST['name']);
 }
@@ -59,7 +61,7 @@ function arrayProtectRecursive(array &$arr)
     <meta name="description" content="FormFormer, an HTML form generation tool written in PHP by it-all.com">
     <meta name="author" content="it-all.com">
 
-    <link rel="stylesheet" href="css/ffstyle.css?v=1.0">
+    <link rel="stylesheet" href="css/ffstyle.css?v=1.2">
 
     <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>

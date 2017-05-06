@@ -19,4 +19,12 @@ class Helper
         }
         return $html;
     }
+
+    static public function getAttributeByName(array $attributes, string $attributeName)
+    {
+        if (isset($attributes[$attributeName])) {
+            return $attributes[$attributeName];
+        }
+        return false;
+    }
 }

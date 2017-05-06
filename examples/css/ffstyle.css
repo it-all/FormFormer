@@ -34,3 +34,6 @@ a {
     text-decoration: none;
     color: aqua;
 }
+input, select, textarea, button, meter, progress, output {
+    margin-right: .5em;
+}

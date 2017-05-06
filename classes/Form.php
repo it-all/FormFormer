@@ -16,7 +16,7 @@ class Form extends NodeHolder
     /**
      * array of field/field group names => error msgs that are shown at top of form if displayErrorType == 'verbose'
      */
-    protected $ffgErrors;
+    protected $errors;
 
     /**
      * possible values: 'none', 'standard', 'verbose', 'custom'
@@ -63,48 +63,15 @@ class Form extends NodeHolder
     }
 
     /**
-     * @param array $ffgNodes
-     * @param array $errors
-     */
-    private function setFfgNodesErrors(array &$ffgNodes, array &$errors)
-    {
-        foreach ($ffgNodes as $node) {
-            if (isset($errors[$node->getName()])) {
-                $this->setFfgError($node, $errors[$node->getName()]);
-            }
-        }
-    }
-
-    /**
-     * @param array $errors
-     * @param array|null $ffgNodes
-     * up to client to pass in correct nodes
-     */
-    public function setFfgErrors(array &$errors, array &$ffgNodes = null)
-    {
-        $ffgNodes = ($ffgNodes == null) ? $this->getFfgNodes() : $ffgNodes;
-        $this->setFfgNodesErrors($ffgNodes, $errors);
-    }
-
-    /**
-     * @param array $values
-     * @param array|null $ffgNodes
-     * up to client to pass in correct nodes
-     */
-    public function setFfgValues(array &$values, array &$ffgNodes = null)
-    {
-        $ffgNodes = ($ffgNodes == null) ? $this->getFfgNodes() : $ffgNodes;
-        $this->setFfgNodesValues($ffgNodes, $values);
-    }
-
-    /**
-     * @param $node
+     * @param FieldFieldGroup $node
      * @param $errorMsg
      */
-    public function setFfgError($node, $errorMsg)
+    public function setError(FieldFieldGroup $node, string $errorMsg)
     {
         $node->setErrorMsg($errorMsg);
-        $this->ffgErrors[$node->getName()] = $errorMsg;
+        if ($node->getName() !== null) {
+            $this->errors[$node->getName()] = $errorMsg;
+        }
     }
 
     /**
@@ -161,13 +128,13 @@ class Form extends NodeHolder
                 }
                 break;
             default:
-                if (count($this->ffgErrors) == 0) {
+                if (count($this->errors) == 0) {
                     return "";
                 }
-                $pl = (count($this->ffgErrors) > 1) ? "s" : "";
+                $pl = (count($this->errors) > 1) ? "s" : "";
                 $errorMsg = "Error$pl encountered";
                 if ($this->displayErrorType == 'verbose') {
-                    foreach ($this->ffgErrors as $ffgName => $ffgErrorMsg) {
+                    foreach ($this->errors as $ffgName => $ffgErrorMsg) {
                         $errorMsg .= "<br>$ffgName: $ffgErrorMsg";
                     }
                 }

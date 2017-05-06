@@ -119,10 +119,7 @@ class Field extends FieldFieldGroup
 
     public function getAttributeByName(string $attributeName)
     {
-        if (isset($this->attributes[$attributeName])) {
-            return $this->attributes[$attributeName];
-        }
-        return false;
+        return Helper::getAttributeByName($this->attributes, $attributeName);
     }
 
     protected function removeAttribute(string $attributeName)
@@ -186,9 +183,6 @@ class Field extends FieldFieldGroup
             }
             $html .= "</div>";
         }
-        if ($showErrorMsg) {
-            $html .= $this->generateErrorMsg();
-        }
         if ($showDescriptor) {
             $html .= $this->generateDescriptor();
         }
@@ -199,12 +193,14 @@ class Field extends FieldFieldGroup
         if ($endTag) {
             $html .= "</".$this->tag.">";
         }
+        if (strlen($postFieldContent) > 0) {
+            $html .= $postFieldContent;
+        }
+        if ($showErrorMsg) {
+            $html .= $this->generateErrorMsg();
+        }
         if (Form::$divWrapFields && $divWrap) {
-            $html = "<div class='ffFieldWrapper'>$html";
-            if (strlen($postFieldContent) > 0) {
-                $html .= $postFieldContent;
-            }
-            $html .= "</div>";
+            $html = "<div class='ffFieldWrapper'>$html</div>";
         }
         return $html;
     }
