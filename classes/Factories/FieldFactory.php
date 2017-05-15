@@ -12,7 +12,7 @@ namespace It_All\FormFormer\Factories;
 class FieldFactory
 {
 
-     public static function create(string $tag = 'input', array $attributes = [], string $label = '', string $descriptor = '', array $customFieldSettings = [])
+    public static function create(string $tag = 'input', array $attributes = [], string $label = '', string $descriptor = '', array $customFieldSettings = [])
     {
         if (strlen($tag) == 0) {
             $tag = 'input';
@@ -31,10 +31,10 @@ class FieldFactory
                     //https://www.w3.org/TR/html5/forms.html#states-of-the-type-attribute
                     $validInputTypes = array('hidden', 'text', 'search', 'tel', 'url', 'email', 'password', 'date', 'time', 'number', 'range', 'color', 'checkbox', 'radio', 'file', 'submit', 'image', 'reset', 'button');
                     if (!in_array($attributes['type'], $validInputTypes)) {
-                        throw new \Exception('Invalid input type '.$attributes['type']);
+                        throw new \Exception('Invalid input type ' . $attributes['type']);
                     }
 
-                    $namespaceClassname = 'InputFields\\'.ucwords($attributes['type']).'InputField';
+                    $namespaceClassname = 'InputFields\\' . ucwords($attributes['type']) . 'InputField';
 
                 }
                 break;
@@ -44,78 +44,19 @@ class FieldFactory
             case 'progress':
             case 'select':
             case 'textarea':
-                $namespaceClassname = ucwords($tag)."Field";
+                $namespaceClassname = ucwords($tag) . "Field";
                 break;
             default:
-                throw new \Exception('Invalid field tag name '.$tag);
+                throw new \Exception('Invalid field tag name ' . $tag);
         }
 
-        $namespaceClass = "It_All\\FormFormer\\Fields\\".$namespaceClassname;
+        $namespaceClass = "It_All\\FormFormer\\Fields\\" . $namespaceClassname;
         if (class_exists($namespaceClass)) {
             $field = new $namespaceClass($attributes, $label, $descriptor, $customFieldSettings);
         } else {
-            throw new \Exception('Class not found '.$namespaceClass);
+            throw new \Exception('Class not found ' . $namespaceClass);
         }
 
         return $field;
     }
-
-//    public static function create(string $tag = 'input', array $attributes = [], string $label = '', string $descriptor = '', array $customFieldSettings = [])
-//    {
-//        if (strlen($tag) == 0) {
-//            $tag = 'input';
-//        }
-//        $fieldInfo = [
-//            'attributes' => $attributes,
-//            'label' => $label,
-//            'descriptor' => $descriptor
-//        ];
-//        switch ($tag) {
-//            case 'input':
-//                if (!isset($attributes['type'])) {
-//
-//                    // allow <input> tag without type attribute by not defaulting type to text
-//                    $namespaceClassname = 'InputField';
-//
-//                } else {
-//
-//                    $attributes['type'] = strtolower(trim($attributes['type']));
-//
-//                    //https://www.w3.org/TR/html5/forms.html#states-of-the-type-attribute
-//                    $validInputTypes = array('hidden', 'text', 'search', 'tel', 'url', 'email', 'password', 'date', 'time', 'number', 'range', 'color', 'checkbox', 'radio', 'file', 'submit', 'image', 'reset', 'button');
-//                    if (!in_array($attributes['type'], $validInputTypes)) {
-//                        throw new \Exception('Invalid input type '.$attributes['type']);
-//                    }
-//
-//                    $namespaceClassname = 'InputFields\\'.ucwords($attributes['type']).'InputField';
-//
-//                }
-//                break;
-//            case 'button':
-//            case 'meter':
-//            case 'output':
-//            case 'progress':
-//            case 'textarea':
-//                $namespaceClassname = ucwords($tag)."Field";
-//                break;
-//            case 'select':
-//                // todo validate $customFieldSettings
-//                $params = [$attributes, $label, $descriptor, $customFieldSettings];
-//                $fieldInfo['options'] = $customFieldSettings['options'];
-//                $namespaceClassname = ucwords($tag)."Field";
-//                break;
-//            default:
-//                throw new \Exception('Invalid field tag name '.$tag);
-//        }
-//
-//        $namespaceClass = "It_All\\FormFormer\\Fields\\".$namespaceClassname;
-//        if (class_exists($namespaceClass)) {
-//            $field = new $namespaceClass($fieldInfo);
-////            $field = call_user_func_array(array($namespaceClass, '__construct'), $params);
-//        } else {
-//            throw new \Exception('Class not found '.$namespaceClass);
-//        }
-//
-//        return $field;
-//    }
 }

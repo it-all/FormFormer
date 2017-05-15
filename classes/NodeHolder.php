@@ -45,6 +45,11 @@ abstract class NodeHolder
         return Helper::getAttributeByName($this->attributes, $attributeName);
     }
 
+    public function getAttributes(): array
+    {
+        return $this->attributes;
+    }
+
     /**
      * @param string $html
      */
