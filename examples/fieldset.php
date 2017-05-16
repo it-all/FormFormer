@@ -29,9 +29,7 @@ $fs->field('input', 'submit')->name('sub')->value('Go!');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
    if (preg_match('/.[0-9]/', $_POST['name'])) {
-       echo 'number in name';
        $form->setError($nameField, 'number in name');
-//       $nameField->setErrorMsg('number in name');
     }
     $nameField->value($_POST['name']);
 }
