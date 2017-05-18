@@ -16,7 +16,7 @@ class Form extends NodeHolder
     /**
      * array of field/field group names => error msgs that are shown at top of form if displayErrorType == 'verbose'
      */
-    protected $errors;
+    protected $ffgErrors;
 
     /**
      * possible values: 'none', 'standard', 'verbose', 'custom'
@@ -27,7 +27,7 @@ class Form extends NodeHolder
     protected $displayErrorType;
 
     /**
-     * @var string used with displayErrorType custom to show message at top of form
+     * @var string used with displayErrorType custom, verbose to show message at top of form
      */
     protected $customErrorMsg;
 
@@ -70,7 +70,7 @@ class Form extends NodeHolder
     {
         $node->setErrorMsg($errorMsg);
         if ($node->getName() !== null) {
-            $this->errors[$node->getName()] = $errorMsg;
+            $this->ffgErrors[$node->getName()] = $errorMsg;
         }
     }
 
@@ -128,13 +128,17 @@ class Form extends NodeHolder
                 }
                 break;
             default:
-                if (count($this->errors) == 0) {
+                // an error message is returned if there is a custom error message set and/or there are field errors
+                if ( (!$customErrorMessage = $this->getCustomErrorMsg()) && count($this->ffgErrors) == 0) {
                     return "";
                 }
-                $pl = (count($this->errors) > 1) ? "s" : "";
+                $pl = (count($this->ffgErrors) > 1) ? "s" : "";
                 $errorMsg = "Error$pl encountered";
+                if ($customErrorMessage !== false) {
+                    $errorMsg .= "<br>".$this->getCustomErrorMsg();
+                }
                 if ($this->displayErrorType == 'verbose') {
-                    foreach ($this->errors as $ffgName => $ffgErrorMsg) {
+                    foreach ($this->ffgErrors as $ffgName => $ffgErrorMsg) {
                         $errorMsg .= "<br>$ffgName: $ffgErrorMsg";
                     }
                 }

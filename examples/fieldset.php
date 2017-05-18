@@ -28,7 +28,8 @@ $fs->addField('input', $patternField['attributes'], $patternField['label']);
 $fs->field('input', 'submit')->name('sub')->value('Go!');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-   if (preg_match('/.[0-9]/', $_POST['name'])) {
+    $form->setCustomErrorMsg('This message is custom.');
+    if (preg_match('/.[0-9]/', $_POST['name'])) {
        $form->setError($nameField, 'number in name');
     }
     $nameField->value($_POST['name']);
