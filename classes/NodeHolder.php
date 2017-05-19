@@ -32,14 +32,16 @@ abstract class NodeHolder
 
     /**
      * @param string $attributeName
-     * @param string $attributeValue
-     * do not type hint value as may be string/int/float
+     * @param string $attributeValue string/int/float
      */
-    public function setAttribute(string $attributeName, $attributeValue)
+    protected function setAttribute(string $attributeName, $attributeValue)
     {
-        $this->attributes[$attributeName] = $attributeValue;
+        if ($attributeValue === null) {
+            $attributeValue = '';
+        }
+        $this->attributes[strtolower(trim($attributeName))] = $attributeValue;
     }
-
+    
     public function getAttributeByName(string $attributeName)
     {
         return Helper::getAttributeByName($this->attributes, $attributeName);

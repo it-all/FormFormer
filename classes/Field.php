@@ -108,9 +108,15 @@ class Field extends FieldFieldGroup
         parent::setErrorMsg($errorMsg);
     }
 
-    // do not type hint value as may be string/int/float
+    /**
+     * @param string $attributeName
+     * @param string $attributeValue string/int/float
+     */
     protected function setAttribute(string $attributeName, $attributeValue)
     {
+        if ($attributeValue === null) {
+            $attributeValue = '';
+        }
         $this->attributes[strtolower(trim($attributeName))] = $attributeValue;
         if ($attributeName == 'required') {
             $this->required = true;
