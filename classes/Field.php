@@ -111,7 +111,7 @@ class Field extends FieldFieldGroup
     // do not type hint value as may be string/int/float
     protected function setAttribute(string $attributeName, $attributeValue)
     {
-        $this->attributes[$attributeName] = $attributeValue;
+        $this->attributes[strtolower(trim($attributeName))] = $attributeValue;
         if ($attributeName == 'required') {
             $this->required = true;
         }
@@ -171,7 +171,6 @@ class Field extends FieldFieldGroup
 
     public function generate(bool $showLabel = true, bool $showReqdOpt = true, bool $showErrorMsg = true, bool $showDescriptor = true, bool $divWrap = true, string $content = '', bool $endTag = false, string $postFieldContent = '')
     {
-//        echo '<pre>';var_dump($this);echo '</pre><br><br>';
         $html = "";
         if ($showLabel || $showReqdOpt) {
             $html .= "<div class='ffLabelDiv'>";
@@ -188,7 +187,7 @@ class Field extends FieldFieldGroup
         }
         $html .= "<".$this->tag.Helper::generateTagAttributes($this->attributes).">";
         if (strlen($content) > 0) {
-            $html .= $content;
+            $html .= htmlspecialchars($content, ENT_QUOTES | ENT_HTML5, 'UTF-8');
         }
         if ($endTag) {
             $html .= "</".$this->tag.">";

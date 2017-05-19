@@ -14,7 +14,11 @@ class Helper
         $html = "";
         $uniqueAttributes = ['novalidate', 'required', 'disabled'];
         foreach ($attributes as $attrName => $attrVal) {
-            $attrVal = str_replace("'", "&apos;", $attrVal);
+            if ($attrName == 'value') {
+                $attrVal = htmlspecialchars($attrVal, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+            } else {
+                $attrVal = str_replace("'", "&apos;", $attrVal);
+            }
             $html .= (in_array($attrName, $uniqueAttributes)) ? " $attrName" : " $attrName='$attrVal'";
         }
         return $html;

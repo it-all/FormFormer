@@ -6,8 +6,6 @@ require('../vendor/autoload.php');
 
 use It_All\FormFormer\Form;
 
-arrayProtectRecursive($_POST);
-
 // fieldset example
 $form = new Form(['method' => 'post'], 'verbose');
 $fs = $form->addFieldset()->legend('Registration');
@@ -23,33 +21,19 @@ $patternField = [
     ],
     'label' => 'Pattern'
 ];
+$txtField = $fs->field('textarea')->name('txt')->label('Text');
 $fs->addField('input', $patternField['attributes'], $patternField['label']);
 //$fs->field()->attr('pattern', '[A-Za-z][0-9]{3}')->attr('title', 'A letter followed by 3 digits');
 $fs->field('input', 'submit')->name('sub')->value('Go!');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $form->setCustomErrorMsg('This message is custom.');
     if (preg_match('/.[0-9]/', $_POST['name'])) {
        $form->setError($nameField, 'number in name');
+       $form->setCustomErrorMsg('This message is custom.');
     }
     $nameField->value($_POST['name']);
+    $txtField->value($_POST['txt']);
 }
-
-/**
- * protects array from xss by changing actual array values to escaped characters
- * @param array $arr
- */
-function arrayProtectRecursive(array &$arr)
-{
-    foreach ($arr as $k => $v) {
-        if (is_array($v)) {
-            arrayProtectRecursive($arr[$k]);
-        } else {
-            $arr[$k] = htmlspecialchars($v, ENT_QUOTES | ENT_HTML401);
-        }
-    }
-}
-
 ?>
 <!doctype html>
 
