@@ -119,7 +119,7 @@ $form->field('select', '')->options($options)->label('Select');
 // TEXTAREA
 $form->field('textarea', '')->value('in the box!')->id('txta');
 
-$form->addField('textarea', ['name' => 'txt2'], 'test text', '', ['value' => 'textarea value']);
+$form->addField('textarea', ['name' => 'txt2'], 'test text', '', ['value' => 'sample textarea value']);
 
 // BUTTON FIELDS (slightly different than INPUT FIELDS with type='button')
 

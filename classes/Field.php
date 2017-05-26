@@ -92,7 +92,7 @@ class Field extends FieldFieldGroup
      */
     public function value($value)
     {
-        $this->setAttribute('value', $value);
+        $this->setAttribute('value', (string) $value);
         return $this;
     }
 
@@ -110,14 +110,14 @@ class Field extends FieldFieldGroup
 
     /**
      * @param string $attributeName
-     * @param string $attributeValue string/int/float
+     * @param $attributeValue
      */
     protected function setAttribute(string $attributeName, $attributeValue)
     {
         if ($attributeValue === null) {
             $attributeValue = '';
         }
-        $this->attributes[strtolower(trim($attributeName))] = $attributeValue;
+        $this->attributes[strtolower(trim($attributeName))] = (string) $attributeValue;
         if ($attributeName == 'required') {
             $this->required = true;
         }
@@ -193,7 +193,7 @@ class Field extends FieldFieldGroup
         }
         $html .= "<".$this->tag.Helper::generateTagAttributes($this->attributes).">";
         if (strlen($content) > 0) {
-            $html .= htmlspecialchars($content, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+            $html .= $content;
         }
         if ($endTag) {
             $html .= "</".$this->tag.">";

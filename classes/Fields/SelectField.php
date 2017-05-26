@@ -65,9 +65,6 @@ class SelectField extends Field
      */
     public function placeholder(string $placeholder)
     {
-        if (count($this->options) == 0) {
-            throw new \Exception('Options must be set before placeholder in select field '.$this->getName());
-        }
         $this->placeholder = $placeholder;
         return $this;
     }
