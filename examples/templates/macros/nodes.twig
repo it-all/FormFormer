@@ -5,6 +5,9 @@
     {% for node in nodes %}
         {% if node.isFieldset %}
             <fieldset>
+                {% if node.getLegendText %}
+                    <legend>{{ node.getLegendText }}</legend>
+                {% endif %}
                 {{ self.renderRecursive(node.getNodes) }}
             </fieldset>
         {% else %}

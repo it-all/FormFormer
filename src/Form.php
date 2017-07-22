@@ -64,9 +64,9 @@ class Form extends NodeHolder
 //        }
     }
 
-    // todo test invalid node
-    // make sure incoming array are all Field or Fieldset objects
+    // also validates incoming array to be Field or Fieldset objects
     // on the first field error, set focusField and error properties
+    // recursive when encounters a fieldset
     private function setErrorAndFocusField(array $nodes)
     {
         foreach ($nodes as $nodeKey => $node) {

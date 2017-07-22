@@ -38,20 +38,21 @@ if (isset($_POST['sub'])) {
     // if validate returns false, form will redisplay with errors (set in validate)
 }
 
-// public function __construct(string $type, string $id = null, string $name = null, string $label = null, string $value = '', bool $required = false, array $cssClasses = null, array $otherAttributes = null, bool $error = false, string $errorMessage = '')
+// public function __construct(string $type, string $id = '', string $name = '', string $label = '', string $value = '', bool $required = false, array $cssClasses = null, array $otherAttributes = null, string $errorMessage = '')
 
+$f1 = new \It_All\FormFormer\Fields\InputFields\TextInputField('12', 'f1id', 'f1name', 'Text Field', $fieldValues['f1name'], true, 'enter text', null, null, $fieldErrors['f1name']);
 
-$f1 = new \It_All\FormFormer\Fields\InputField('text', 'f1id', 'f1name', 'Text Field', $fieldValues['f1name'], true, null, null, $fieldErrors['f1name']);
+// __construct(string $min = '', string $max = '', string $range = '', string $id = '', string $name = '', string $label = '', string $value = '', bool $required = false, string $placeholder = '', array $cssClasses = null, array $otherAttributes = null, string $errorMessage = '')
 
-$f2 = new \It_All\FormFormer\Fields\InputField('number', '', 'f2name', 'Number Field');
+$f2 = new \It_All\FormFormer\Fields\InputFields\NumberInputField('0', '100', '5', 'f2id', 'f2name', 'Number Field', $fieldValues['f2name'], true, 'number', null);
 
-$f11 = new \It_All\FormFormer\Fields\InputField('text', 'f11id', 'f11name', 'Text Field', $fieldValues['f11name'], true, null, null, $fieldErrors['f11name']);
+$f11 = new \It_All\FormFormer\Fields\InputField('text', 'f11id', 'f11name', 'Text Field', $fieldValues['f11name'], true, '', null, null, $fieldErrors['f11name']);
 
 $f12 = new \It_All\FormFormer\Fields\InputField('number', '', 'f12name', 'Number Field');
 
-$fs11 = new \It_All\FormFormer\Fieldset([$f11, $f12]);
+$fs11 = new \It_All\FormFormer\Fieldset([$f11, $f12], 'inner fieldset');
 
-$fs1 = new \It_All\FormFormer\Fieldset([$f1, $f2, $fs11]);
+$fs1 = new \It_All\FormFormer\Fieldset([$f1, $f2, $fs11], 'outer fieldset');
 
 $sub = new \It_All\FormFormer\Fields\InputField('submit', 'subid', 'sub', '', 'Go!');
 

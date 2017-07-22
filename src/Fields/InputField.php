@@ -11,7 +11,7 @@ class InputField extends Field
 
     /** not sure if there's a viable use case for an input tag with no type defined (defaults to text). i'm assuming no and will modify if proven wrong */
 
-    public function __construct(string $type, string $id = '', string $name = '', string $label = '', string $value = '', bool $required = false, array $cssClasses = null, array $otherAttributes = null, string $errorMessage = '')
+    public function __construct(string $type, string $id = '', string $name = '', string $label = '', string $value = '', bool $required = false, string $placeholder = '', array $cssClasses = null, array $otherAttributes = null, string $errorMessage = '')
     {
         //https://www.w3.org/TR/html5/forms.html#states-of-the-type-attribute
         $validInputTypes = array('hidden', 'text', 'search', 'tel', 'url', 'email', 'password', 'date', 'time', 'number', 'range', 'color', 'checkbox', 'radio', 'file', 'submit', 'image', 'reset', 'button');
@@ -22,7 +22,7 @@ class InputField extends Field
 
         $this->type = $type;
 
-        parent::__construct('input', $id, $name, $label, $value, $required, $cssClasses, $otherAttributes, $errorMessage);
+        parent::__construct('input', $id, $name, $label, $value, $required, $placeholder, $cssClasses, $otherAttributes, $errorMessage);
 
         $this->setAttribute('type', $type);
 

@@ -17,7 +17,7 @@ class Field
     /** otherAttributes should not include id, name, value, class
     * an error class is not automatically set even if $error is true, it can be entered in the $cssClasses array
      */
-    public function __construct(string $tag = 'input', string $id = '', string $name = '', string $label = '', string $value = '', bool $required = false, array $cssClasses = null, array $otherAttributes = null, string $errorMessage = '')
+    public function __construct(string $tag = 'input', string $id = '', string $name = '', string $label = '', string $value = '', bool $required = false, string $placeholder = '', array $cssClasses = null, array $otherAttributes = null, string $errorMessage = '')
     {
         $validTags = ['input', 'textarea', 'select', 'button', 'meter', 'output', 'progress'];
         $this->tag = trim($tag);
@@ -31,24 +31,28 @@ class Field
         $this->value = trim($value);
         $this->errorMessage = trim($errorMessage);
         $this->error = (strlen($this->errorMessage) > 0) ? true : false;
-        $this->setAttributes($id, $name, $required, $cssClasses, $otherAttributes);
+        $this->setAttributes($id, $name, $required, $placeholder, $cssClasses, $otherAttributes);
     }
 
     /** note if value is a field attribute it is set in the child class */
-    private function setAttributes(string $id = null, string $name = null, bool $required = false, array $cssClasses = null, array $otherAttributes = null)
+    private function setAttributes(string $id, string $name, bool $required, string $placeholder,array $cssClasses = null, array $otherAttributes = null)
     {
         $this->attributes = [];
 
-        if ($id !== null && strlen($id) > 0) {
+        if (strlen($id) > 0) {
             $this->setAttribute('id', $id);
         }
 
-        if ($name !== null && strlen($name) > 0) {
+        if (strlen($name) > 0) {
             $this->setAttribute('name', $name);
         }
 
         if ($required) {
             $this->setAttribute('required', 'required');
+        }
+
+        if (strlen($placeholder) > 0) {
+            $this->setAttribute('placeholder', $placeholder);
         }
 
         if (is_array($cssClasses)) {
@@ -63,7 +67,7 @@ class Field
         }
 
         if (is_array($otherAttributes)) {
-            $weedOut = ['id', 'name', 'value', 'class']; // these should be set elsewhere in the constructor
+            $weedOut = ['id', 'name', 'value', 'required', 'placeholder', 'class']; // these attributes are set above through other parameters in the constructor, except value, which is set in the child classes
             foreach ($otherAttributes as $aName => $aValue) {
                 if (!in_array($aName, $weedOut)) {
                     $this->setAttribute((string) $aName, (string) $aValue);
