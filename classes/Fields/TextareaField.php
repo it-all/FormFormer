@@ -32,6 +32,7 @@ class TextareaField extends Field
         return $this;
     }
 
+    /** overwrites Field::getValue() */
     public function getValue()
     {
         return $this->value;

@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>FormFormer</title>
+    <meta name="author" content="it-all.com">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="html forms, html5 forms">
+    <meta name="description" content="FormFormer is an HTML form generation tool written in PHP and Twig by it-all.com">
+    {% block htmlHeadMeta %}{% endblock %}
+    <link rel="stylesheet" href="css/ffstyle.css?v=1.2">
+    {% block htmlHeadCss %}{% endblock %}
+    {% block htmlHeadJs %}{% endblock %}
+</head>
+<body>
+{% block htmlBodyContent %}{% endblock %}
+{% block htmlBodyJs %}{% endblock %}
+</body>
+</html>

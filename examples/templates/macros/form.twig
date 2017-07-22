@@ -1,0 +1,16 @@
+{% macro render(form) %}
+
+    <form method="{{ form.getMethod }}"{% if form.getBrowserValidation == false %} novalidate="novalidate"{% endif %}>
+
+        {% if form.getError %}
+            <div class="generalFormError">{{ form.getErrorMessage }}</div>
+        {% endif %}
+
+        {% import 'macros/field.twig' as fieldMacro %}
+        {% for field in form.getFields %}
+            {{ fieldMacro.render(field) }}
+        {% endfor %}
+
+    </form>
+
+{% endmacro %}

@@ -1,0 +1,16 @@
+{%  extends 'base.twig' %}
+
+{%  block htmlBodyContent %}
+
+    {% import 'macros/form.twig' as formMacro %}
+    {{ formMacro.render(form) }}
+
+    {% block htmlBodyJs %}
+        {% if focusFieldId %}
+            <script type="text/javascript">
+                window.onload = document.getElementById('{{ focusFieldId }}').focus();
+            </script>
+        {% endif %}
+    {% endblock %}
+
+{%  endblock %}

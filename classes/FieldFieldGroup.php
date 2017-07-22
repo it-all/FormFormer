@@ -9,7 +9,7 @@ abstract class FieldFieldGroup
     protected $required;
 
     /** @var string used also to test ffg error condition */
-    protected $errorMsg = "";
+    protected $errorMessage = "";
 
     /** @var string output just above each field */
     protected $descriptor = "";
@@ -35,11 +35,7 @@ abstract class FieldFieldGroup
     /** more efficient to call this than hasError/getErrorMsg */
     public function getErrorMsg()
     {
-        if (strlen($this->errorMsg) > 0) {
-            return $this->errorMsg;
-        } else {
-            return false;
-        }
+        return (strlen($this->errorMsg) > 0) ? $this->errorMsg : false;
     }
 
     private function isReqdOptEqErrMsg(): bool

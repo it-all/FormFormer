@@ -3,11 +3,12 @@
   "description": "HTML5 Form Creation Tool",
   "license": "GPL-3.0",
   "require": {
-    "php": ">=7.0"
+    "php": ">=7.0",
+    "twig/twig": "^2.0"
   },
   "autoload": {
     "psr-4": {
-      "It_All\\FormFormer\\":"classes/"
+      "It_All\\FormFormer\\":"src/"
     }
   }
 }

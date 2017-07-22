@@ -1,6 +1,2 @@
-HTML5 Form Creation Tool Written in PHP
+HTML5 Form Creation Tool Written in PHP (requires PHP 7.0+)
 
-See examples for helpful usage tips.
-
-Errors
-Best to call Form::setError
