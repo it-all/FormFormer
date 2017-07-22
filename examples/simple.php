@@ -13,12 +13,16 @@ $fieldValidation = [
 
 $fieldValues = [
     'f1name' => '',
-    'f2name' => ''
+    'f2name' => '',
+    'f11name' => '',
+    'f12name' => ''
 ];
 
 $fieldErrors = [
     'f1name' => '',
-    'f2name' => ''
+    'f2name' => '',
+    'f11name' => '',
+    'f12name' => ''
 ];
 
 if (isset($_POST['sub'])) {
@@ -36,13 +40,22 @@ if (isset($_POST['sub'])) {
 
 // public function __construct(string $type, string $id = null, string $name = null, string $label = null, string $value = '', bool $required = false, array $cssClasses = null, array $otherAttributes = null, bool $error = false, string $errorMessage = '')
 
+
 $f1 = new \It_All\FormFormer\Fields\InputField('text', 'f1id', 'f1name', 'Text Field', $fieldValues['f1name'], true, null, null, $fieldErrors['f1name']);
 
 $f2 = new \It_All\FormFormer\Fields\InputField('number', '', 'f2name', 'Number Field');
 
+$f11 = new \It_All\FormFormer\Fields\InputField('text', 'f11id', 'f11name', 'Text Field', $fieldValues['f11name'], true, null, null, $fieldErrors['f11name']);
+
+$f12 = new \It_All\FormFormer\Fields\InputField('number', '', 'f12name', 'Number Field');
+
+$fs11 = new \It_All\FormFormer\Fieldset([$f11, $f12]);
+
+$fs1 = new \It_All\FormFormer\Fieldset([$f1, $f2, $fs11]);
+
 $sub = new \It_All\FormFormer\Fields\InputField('submit', 'subid', 'sub', '', 'Go!');
 
-$fields = [$f1, $f2, $sub];
+$fields = [$fs1, $sub];
 
 $form = new Form($fields, 'post', false);
 

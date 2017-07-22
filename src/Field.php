@@ -77,17 +77,17 @@ class Field
         $this->attributes[strtolower(trim($attributeName))] = trim($attributeValue);
     }
 
-    public function getLabel()
+    public function getLabel(): string
     {
         return $this->label;
     }
 
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -126,7 +126,7 @@ class Field
         return false;
     }
 
-    public function getValue()
+    public function getValue(): string
     {
         return $this->value;
     }

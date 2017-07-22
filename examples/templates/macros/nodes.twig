@@ -1,0 +1,15 @@
+{% macro renderRecursive(nodes) %}
+    {% import _self as self %}
+    {% import 'macros/field.twig' as fieldMacro %}
+
+    {% for node in nodes %}
+        {% if node.isFieldset %}
+            <fieldset>
+                {{ self.renderRecursive(node.getNodes) }}
+            </fieldset>
+        {% else %}
+            {{ fieldMacro.render(node) }}
+        {% endif %}
+    {% endfor %}
+
+{% endmacro %}

@@ -3,13 +3,10 @@ declare(strict_types=1);
 
 namespace It_All\FormFormer;
 
-class Form
+class Form extends NodeHolder
 {
-    /** @var  array of Field objects, entered in display order */
-    private $fields;
-
-    /** @var  int key to $fields property. set to first field (0) or first field with error */
-    private $focusField;
+    /** @var  string. set to first field or first field with error */
+    private $focusFieldId;
 
     /** @var string get|post */
     private $method;
@@ -24,44 +21,84 @@ class Form
     private $errorMessage;
 
 
-    public function __construct(array $fields, string $method = 'get', bool $browserValidation = true)
+    public function __construct(array $nodes, string $method = 'get', bool $browserValidation = true)
     {
         $method = trim(strtolower($method));
         if ($method != 'get' && $method != 'post') {
             throw new \Exception('Method must be get or post: '.$method);
         }
 
-        $this->fields = $fields;
+        parent::__construct($nodes);
         $this->method = $method;
         $this->browserValidation = $browserValidation;
-        $this->focusField = 0;
         $this->error = false;
         $this->errorMessage = '';
 
-        // make sure incoming array are all Field objects
-        // on the first field error, set focusField and error properties
-        foreach ($this->fields as $fieldKey => $field) {
-            if (!($field instanceof Field)) {
-                throw new \Exception('Invalid entry in fields array');
+        $this->setErrorAndFocusField($nodes);
+
+//        // make sure incoming array are all Field or Fieldset objects
+//        // on the first field error, set focusField and error properties
+//        foreach ($this->nodes as $nodeKey => $node) {
+//            if (!($node instanceof Field) && !($node instanceof Fieldset)) {
+//                throw new \Exception('Invalid entry in fields array');
+//            }
+//
+//            if ($node instanceof Field) {
+//                if (!isset($this->focusFieldId)) {
+//                    $this->focusFieldId = $node->getId();
+//                }
+//
+//                if (!$this->error && $node->getError()) {
+//                    $this->error = true;
+//                    $this->errorMessage = 'Submission Error';
+//                    $this->focusFieldId = $node->getId();
+//                }
+//
+//            } else {
+//                // Fieldset
+//                if (!$this->error) {
+//                    $fieldsetNodes = $node->getNodes();
+//                }
+//            }
+//
+//        }
+    }
+
+    // todo test invalid node
+    // make sure incoming array are all Field or Fieldset objects
+    // on the first field error, set focusField and error properties
+    private function setErrorAndFocusField(array $nodes)
+    {
+        foreach ($nodes as $nodeKey => $node) {
+            if (!($node instanceof Field) && !($node instanceof Fieldset)) {
+                throw new \Exception('Invalid node');
             }
 
-            if (!$this->error && $field->getError()) {
-                $this->error = true;
-                $this->errorMessage = 'Submission Error';
-                $this->focusField = $fieldKey;
+            if ($node instanceof Field) {
+                if (!isset($this->focusFieldId)) {
+                    $this->focusFieldId = $node->getId();
+                }
+
+                if (!$this->error && $node->getError()) {
+                    $this->error = true;
+                    $this->errorMessage = 'Submission Error';
+                    $this->focusFieldId = $node->getId();
+                }
+
+            } else {
+                // Fieldset
+                if (!$this->error) {
+                    $this->setErrorAndFocusField($node->getNodes());
+                }
             }
+
         }
     }
 
-    public function getFields()
+    /** returns string id of focus field or '' if no id */
+    public function getFocusFieldId(): string
     {
-        return $this->fields;
-    }
-
-    /** returns string id of focus field or null if no id */
-    public function getFocusFieldId()
-    {
-        return $this->fields[$this->focusField]->getId();
+        return $this->focusFieldId;
     }
 
     public function getMethod()

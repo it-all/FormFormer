@@ -6,10 +6,9 @@
             <div class="generalFormError">{{ form.getErrorMessage }}</div>
         {% endif %}
 
-        {% import 'macros/field.twig' as fieldMacro %}
-        {% for field in form.getFields %}
-            {{ fieldMacro.render(field) }}
-        {% endfor %}
+        {% import 'macros/nodes.twig' as nodesMacro %}
+
+        {{ nodesMacro.renderRecursive(form.getNodes) }}
 
     </form>
 
