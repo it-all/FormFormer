@@ -9,7 +9,7 @@ use It_All\FormFormer\Fields\SelectField;
 /**
 * nodes are the building blocks of forms (and other NodeHolders --> Fieldsets)
 */
-abstract class NodeHolder
+abstract class NodeHolderOld
 {
     /** @var  the html element tag */
     protected $tagName;

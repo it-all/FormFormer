@@ -5,19 +5,17 @@ namespace It_All\FormFormer;
 
 class Field
 {
-    protected $tag; // input, textarea, select, etc
-    private $id;
-    private $name;
+    protected $tag;
     private $label;
-    protected $value;
     private $error;
     private $errorMessage;
     protected $attributes;
 
-    /** otherAttributes should not include id, name, value, class
-    * an error class is not automatically set even if $error is true, it can be entered in the $cssClasses array
+    /**
+     * an error class is not automatically set if $error is true, it can be entered in the $attributes array
+     * value should not be in attributes, it
      */
-    public function __construct(string $tag = 'input', string $id = '', string $name = '', string $label = '', string $value = '', bool $required = false, string $placeholder = '', array $cssClasses = null, array $otherAttributes = null, string $errorMessage = '')
+    protected function __construct(string $tag = 'input', string $label = '', array $attributes = [], string $errorMessage = '')
     {
         $validTags = ['input', 'textarea', 'select', 'button', 'meter', 'output', 'progress'];
         $this->tag = trim($tag);
@@ -25,54 +23,18 @@ class Field
             throw new \Exception("Invalid tag ".$this->tag);
         }
 
-        $this->id = trim($id);
-        $this->name = trim($name);
         $this->label = trim($label);
-        $this->value = trim($value);
         $this->errorMessage = trim($errorMessage);
         $this->error = (strlen($this->errorMessage) > 0) ? true : false;
-        $this->setAttributes($id, $name, $required, $placeholder, $cssClasses, $otherAttributes);
+        $this->setAttributes($attributes);
     }
 
-    /** note if value is a field attribute it is set in the child class */
-    private function setAttributes(string $id, string $name, bool $required, string $placeholder,array $cssClasses = null, array $otherAttributes = null)
+    private function setAttributes(array $attributes)
     {
         $this->attributes = [];
 
-        if (strlen($id) > 0) {
-            $this->setAttribute('id', $id);
-        }
-
-        if (strlen($name) > 0) {
-            $this->setAttribute('name', $name);
-        }
-
-        if ($required) {
-            $this->setAttribute('required', 'required');
-        }
-
-        if (strlen($placeholder) > 0) {
-            $this->setAttribute('placeholder', $placeholder);
-        }
-
-        if (is_array($cssClasses)) {
-            $classAttributeValue = '';
-            foreach ($cssClasses as $index => $class) {
-                if ($index > 0) {
-                    $classAttributeValue .= ' ';
-                }
-                $classAttributeValue .= $class;
-            }
-            $this->setAttribute('class', $classAttributeValue);
-        }
-
-        if (is_array($otherAttributes)) {
-            $weedOut = ['id', 'name', 'value', 'required', 'placeholder', 'class']; // these attributes are set above through other parameters in the constructor, except value, which is set in the child classes
-            foreach ($otherAttributes as $aName => $aValue) {
-                if (!in_array($aName, $weedOut)) {
-                    $this->setAttribute((string) $aName, (string) $aValue);
-                }
-            }
+        foreach ($attributes as $aName => $aValue) {
+            $this->setAttribute((string) $aName, (string) $aValue);
         }
     }
 
@@ -86,14 +48,28 @@ class Field
         return $this->label;
     }
 
+    public function getAttributes(): array
+    {
+        return $this->attributes;
+    }
+
+    public function getAttribute(string $name)
+    {
+        if (isset($this->attributes[$name])) {
+            return $this->attributes[$name];
+        }
+
+        return '';
+    }
+
     public function getId(): string
     {
-        return $this->id;
+        return $this->getAttribute('id');
     }
 
     public function getName(): string
     {
-        return $this->name;
+        return $this->getAttribute('name');
     }
 
     public function getTag(): string
@@ -114,24 +90,5 @@ class Field
     public function getErrorMessage(): string
     {
         return $this->errorMessage;
-    }
-
-    public function getAttributes(): array
-    {
-        return $this->attributes;
-    }
-
-    public function getAttribute(string $name)
-    {
-        if (isset($this->attributes[$name])) {
-            return $this->attributes[$name];
-        }
-
-        return false;
-    }
-
-    public function getValue(): string
-    {
-        return $this->value;
     }
 }

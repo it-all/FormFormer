@@ -5,7 +5,7 @@ namespace It_All\FormFormer\Fields;
 
 use It_All\FormFormer\Field;
 
-class SelectField extends Field
+class SelectFieldOld extends Field
 {
     protected $tag = 'select';
 

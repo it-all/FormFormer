@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace It_All\FormFormer;
 
-class Field extends FieldFieldGroup
+class FieldOld extends FieldFieldGroup
 {
     /**
      * @var string the html element tag name, either input, button, select or textarea

@@ -6,7 +6,7 @@ namespace It_All\FormFormer;
 use It_All\FormFormer\Factories\FieldFactory;
 use It_All\FormFormer\Factories\FieldsetFactory;
 
-class Fieldset extends NodeHolder
+class FieldsetOld extends NodeHolder
 {
     private $legendText;
     private $legendFields;
