@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+// form example with every type of field
+
 require 'init.inc';
 
 use It_All\FormFormer\Form;
@@ -23,7 +25,8 @@ $fieldValues = [
     'num2' => '',
     'f11name' => '',
     'f12name' => '',
-    'sel1' => ''
+    'sel1' => '',
+    'textList' => ''
 ];
 
 $fieldErrors = [
@@ -32,7 +35,8 @@ $fieldErrors = [
     'num2' => '',
     'f11name' => '',
     'f12name' => '',
-    'sel1' => ''
+    'sel1' => '',
+    'textList' => ''
 ];
 
 if (isset($_POST['sub'])) {
@@ -53,10 +57,11 @@ if (isset($_POST['sub'])) {
     }
 }
 
-// public function __construct(string $type, string $id = '', string $name = '', string $label = '', string $value = '', bool $required = false, array $cssClasses = null, array $otherAttributes = null, string $errorMessage = '')
-
-// note, attribute values must be strings
 $f1 = new \It_All\FormFormer\Fields\InputField('Text Field', ['value' => $fieldValues['f1name'], 'id' => 'f1id', 'name' => 'f1name', 'size' => 18, 'required' => 'required'], $fieldErrors['f1name']);
+
+$textList = new \It_All\FormFormer\Fields\InputField('City', ['value' => $fieldValues['textList'], 'id' => 'textList', 'name' => 'textList', 'list' => 'cityList'], $fieldErrors['textList']);
+
+$cityList = new \It_All\FormFormer\Fields\DatalistField(['New Haven', 'Hamden', 'Las Vegas', 'Kalamazoo'], ['id' => 'cityList'], '');
 
 $num1 = new \It_All\FormFormer\Fields\InputField('Number 1', ['type' => 'number', 'id' => 'num1', 'name' => 'num1', 'min' => 1, 'max' => 100, 'value' => $fieldValues['num1'], 'required' => 'required'], $fieldErrors['num1']);
 
@@ -64,10 +69,8 @@ $num2 = new \It_All\FormFormer\Fields\InputField('Number 2', ['type' => 'number'
 
 $output = new \It_All\FormFormer\Field('output', 'Number 1 + Number 2', ['name' => 'outputResult', 'for' => 'num1 num2']);
 
-//public function __construct(string $tag = 'input', string $label = '', string $value = '', array $attributes = [], string $errorMessage = '')
 $f3 = new \It_All\FormFormer\Fields\TextareaField('Enter Some Text', 'initial idea', ['rows' => 4, 'cols' => 50]);
 
-//option __construct(string $text, string $value, bool $isSelected = false, bool $isDisabled = false)
 $opt0 = new \It_All\FormFormer\Fields\SelectOption('-- select --', '', true, true);
 
 $opt1 = new \It_All\FormFormer\Fields\SelectOption('text1', 'val1');
@@ -82,13 +85,13 @@ $optgrp2 = new \It_All\FormFormer\Fields\SelectOptionGroup([$opt11, $opt22, $opt
 
 $f4 = new \It_All\FormFormer\Fields\SelectField([$opt0, $optgrp1, $optgrp2], 'select', $fieldValues['sel1'], ['name' => 'sel1', 'required' => 'required'], $fieldErrors['sel1']);
 
-//$f11 = new \It_All\FormFormer\Fields\InputField('text', 'f11id', 'f11name', 'Text Field', $fieldValues['f11name'], true, '', null, null, $fieldErrors['f11name']);
-//
-//$f12 = new \It_All\FormFormer\Fields\InputField('number', '', 'f12name', 'Number Field');
-//
-//$fs11 = new \It_All\FormFormer\Fieldset([$f11, $f12], 'inner fieldset');
+$f11 = new \It_All\FormFormer\Fields\InputField('Favorite Flavor', ['id' => 'f11id', 'name' => 'f11name'], $fieldErrors['f11name']);
 
-$fs1 = new \It_All\FormFormer\Fieldset([$f1, $num1], 'outer fieldset');
+$f12 = new \It_All\FormFormer\Fields\InputField('Number Field', ['type' => 'number']);
+
+$fs11 = new \It_All\FormFormer\Fieldset([$f11, $f12], 'inner fieldset');
+
+$fs1 = new \It_All\FormFormer\Fieldset([$f1, $num1, $fs11], 'outer fieldset');
 
 $f5 = new \It_All\FormFormer\Field('progress', 'Progress', ['max' => 100, 'value' => 54]);
 $f6 = new \It_All\FormFormer\Field('meter', 'Meter', ['value' => .3]);
@@ -132,11 +135,11 @@ $week = new \It_All\FormFormer\Fields\InputField('', ['type' => 'week']);
 
 $sub = new \It_All\FormFormer\Fields\InputField('', ['type' => 'submit', 'name' => 'sub', 'value' => 'Go!']);
 
-$nodes = [$f1, $num1, $num2, $output, $f3, $f4, $f5, $f6, $button, $color, $date, $email, $file, $hidden, $image, $range, $pw, $radioFs, $cb, $cb2, $reset, $search, $tel, $time, $url, $week, $sub];
+$nodes = [$fs1, $textList, $cityList, $num2, $output, $f3, $f4, $f5, $f6, $button, $color, $date, $email, $file, $hidden, $image, $range, $pw, $radioFs, $cb, $cb2, $reset, $search, $tel, $time, $url, $week, $sub];
 
 $form = new Form($nodes, ['method' => 'post', 'novalidate' => 'novalidate', 'oninput' => 'outputResult.value=parseInt(num1.value)+parseInt(num2.value)']);
 
-echo $twig->render('simple.twig', array('form' => $form, 'focusFieldId' => $form->getFocusFieldId()));
+echo $twig->render('form.twig', array('form' => $form, 'focusFieldId' => $form->getFocusFieldId()));
 
 function validate(array $rules, $values)
 {

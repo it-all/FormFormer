@@ -18,7 +18,7 @@ class Field
      */
     public function __construct(string $tag = 'input', string $label = '', array $attributes = [], string $errorMessage = '', $isLabelBefore = true)
     {
-        $validTags = ['input', 'textarea', 'select', 'button', 'meter', 'output', 'progress'];
+        $validTags = ['input', 'textarea', 'select', 'button', 'meter', 'output', 'progress', 'datalist'];
         $this->tag = trim($tag);
         if (!in_array($this->tag, $validTags)) {
             throw new \Exception("Invalid tag ".$this->tag);

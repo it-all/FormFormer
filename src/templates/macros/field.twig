@@ -1,6 +1,6 @@
 {% macro render(field) %}
 
-    {% import 'macros/htmlElement.twig' as htmlElement %}
+    {% import 'macros/htmlElement.twig' as htmlElementMacro %}
 
     {% set showRequired = true %}
 
@@ -25,27 +25,35 @@
     {% endif %}
 
     {% if field.getTag == 'select' %}
-        {% import 'macros/selectOptions.twig' as selectOptions %}
+        {% import 'macros/selectOptions.twig' as selectOptionsMacro %}
 
-        {{ htmlElement.open(field.getTag, field.getAttributes) }}
-            {{ selectOptions.renderRecursive(field, field.getOptionOptionGroups) }}
-        {{ htmlElement.close('select') }}
+        {{ htmlElementMacro.open('select', field.getAttributes) }}
+            {{ selectOptionsMacro.renderRecursive(field, field.getOptionOptionGroups) }}
+        {{ htmlElementMacro.close('select') }}
+
+    {% elseif field.getTag == 'datalist' %}
+        {{ htmlElementMacro.open('datalist', field.getAttributes) }}
+            {% for optionValue in field.getOptions %}
+                {{ htmlElementMacro.open('option', {'value':optionValue}) }}
+            {% endfor %}
+
+        {{ htmlElementMacro.close('datalist') }}
 
     {% elseif field.getTag == 'textarea' %}
-        {{ htmlElement.complete('textarea', field.getAttributes, true, field.getValue) }}
+        {{ htmlElementMacro.complete('textarea', field.getAttributes, true, field.getValue) }}
 
     {% elseif field.getTag == 'progress' %}
-        {{ htmlElement.complete('progress', field.getAttributes, true) }}
+        {{ htmlElementMacro.complete('progress', field.getAttributes, true) }}
 
     {% elseif field.getTag == 'meter' %}
-        {{ htmlElement.complete('meter', field.getAttributes, true, field.getValue) }}
+        {{ htmlElementMacro.complete('meter', field.getAttributes, true, field.getValue) }}
 
     {% elseif field.getTag == 'output' %}
-        {{ htmlElement.complete('output', field.getAttributes, true) }}
+        {{ htmlElementMacro.complete('output', field.getAttributes, true) }}
 
     {% elseif field.getTag == 'input' %}
 
-        {{ htmlElement.open('input', field.getAttributes) }}
+        {{ htmlElementMacro.open('input', field.getAttributes) }}
 
         {% if (field.attributes.type == 'radio' or field.attributes.type == 'checkbox') and field.getLabel %}
             {% if field.getId %}
@@ -55,8 +63,8 @@
             {% endif %}
         {% endif %}
 
-    {% else %}
-        {{ htmlElement.complete(field.getTag, field.getAttributes, true) }}
+    {% else %} {# this could be an invalid field type, but give it a try #}
+        {{ htmlElementMacro.complete(field.getTag, field.getAttributes, true) }}
 
     {% endif %}
 

@@ -1,5 +1,5 @@
 {% macro renderOption(field, option) %}
-    {% import 'macros/htmlElement.twig' as htmlElement %}
+    {% import 'macros/htmlElement.twig' as htmlElementMacro %}
 
     {% set optionAttributes = option.getAttributes %}
 
@@ -9,28 +9,28 @@
 
     {% endif %}
 
-    {{ htmlElement.complete('option', optionAttributes, true, option.getText) }}
+    {{ htmlElementMacro.complete('option', optionAttributes, true, option.getText) }}
 
 {% endmacro %}
 
 
 {% macro renderRecursive(field, optionsOptionGroups) %}
-    {% import _self as selectOptions %}
-    {% import 'macros/htmlElement.twig' as htmlElement %}
+    {% import _self as selectOptionsMacro %}
+    {% import 'macros/htmlElement.twig' as htmlElementMacro %}
 
     {% for optionOptionGroup in optionsOptionGroups %}
 
         {% if optionOptionGroup.getText %}  {# it is an option not a group #}
 
-            {{ selectOptions.renderOption(field, optionOptionGroup) }}
+            {{ selectOptionsMacro.renderOption(field, optionOptionGroup) }}
 
         {% else %}  it is an option group
 
-            {{ htmlElement.open('optgroup', optionOptionGroup.getAttributes) }}
+            {{ htmlElementMacro.open('optgroup', optionOptionGroup.getAttributes) }}
 
-            {{ selectOptions.renderRecursive(field, optionOptionGroup.getOptions) }}
+            {{ selectOptionsMacro.renderRecursive(field, optionOptionGroup.getOptions) }}
 
-            {{ htmlElement.close('optgroup') }}
+            {{ htmlElementMacro.close('optgroup') }}
 
         {% endif %}
     {% endfor %}
