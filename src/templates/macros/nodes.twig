@@ -1,15 +1,21 @@
 {% macro renderRecursive(nodes) %}
     {% import _self as self %}
+    {% import 'macros/htmlElement.twig' as htmlElementMacro %}
     {% import 'macros/field.twig' as fieldMacro %}
 
     {% for node in nodes %}
         {% if node.isFieldset %}
-            <fieldset>
+            {{ htmlElementMacro.open('fieldset', node.getAttributes) }}
                 {% if node.getLegendText %}
-                    <legend>{{ node.getLegendText }}</legend>
+                    <legend>
+                        {% if node.getCheckbox %}
+                            {{ fieldMacro.render(node.getCheckbox) }}
+                        {% endif %}
+                        {{ node.getLegendText }}
+                    </legend>
                 {% endif %}
                 {{ self.renderRecursive(node.getNodes) }}
-            </fieldset>
+            {{ htmlElementMacro.close('fieldset') }}
         {% else %}
             {{ fieldMacro.render(node) }}
         {% endif %}

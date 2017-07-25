@@ -4,6 +4,7 @@ declare(strict_types=1);
 // form example with every type of field
 
 require 'init.inc';
+require 'validate.inc';
 
 use It_All\FormFormer\Form;
 
@@ -19,6 +20,7 @@ $fieldValidation = [
     ]
 ];
 
+// initialize necessary values
 $fieldValues = [
     'f1name' => '',
     'num1' => '',
@@ -29,6 +31,7 @@ $fieldValues = [
     'textList' => ''
 ];
 
+// initialize necessary errors
 $fieldErrors = [
     'f1name' => '',
     'num1' => '',
@@ -39,6 +42,7 @@ $fieldErrors = [
     'textList' => ''
 ];
 
+// submission processing and validation
 if (isset($_POST['sub'])) {
 
     foreach ($_POST as $k => $v) {
@@ -57,6 +61,8 @@ if (isset($_POST['sub'])) {
     }
 }
 
+// define fields and fieldsets
+
 $f1 = new \It_All\FormFormer\Fields\InputField('Text Field', ['value' => $fieldValues['f1name'], 'id' => 'f1id', 'name' => 'f1name', 'size' => 18, 'required' => 'required'], $fieldErrors['f1name']);
 
 $textList = new \It_All\FormFormer\Fields\InputField('City', ['value' => $fieldValues['textList'], 'id' => 'textList', 'name' => 'textList', 'list' => 'cityList'], $fieldErrors['textList']);
@@ -67,7 +73,8 @@ $num1 = new \It_All\FormFormer\Fields\InputField('Number 1', ['type' => 'number'
 
 $num2 = new \It_All\FormFormer\Fields\InputField('Number 2', ['type' => 'number', 'id' => 'num2', 'name' => 'num2', 'min' => 1, 'max' => 100, 'value' => $fieldValues['num2'], 'required' => 'required'], $fieldErrors['num2']);
 
-$output = new \It_All\FormFormer\Field('output', 'Number 1 + Number 2', ['name' => 'outputResult', 'for' => 'num1 num2']);
+$output = new \It_All\FormFormer\Fields\OutputField('Number 1 + Number 2', '', ['name' => 'outputResult', 'for' => 'num1 num2']);
+//$output = new \It_All\FormFormer\Field('output', 'Number 1 + Number 2', ['name' => 'outputResult', 'for' => 'num1 num2']);
 
 $f3 = new \It_All\FormFormer\Fields\TextareaField('Enter Some Text', 'initial idea', ['rows' => 4, 'cols' => 50]);
 
@@ -89,12 +96,15 @@ $f11 = new \It_All\FormFormer\Fields\InputField('Favorite Flavor', ['id' => 'f11
 
 $f12 = new \It_All\FormFormer\Fields\InputField('Number Field', ['type' => 'number']);
 
-$fs11 = new \It_All\FormFormer\Fieldset([$f11, $f12], 'inner fieldset');
+$fs11checkbox = new \It_All\FormFormer\Fields\InputFields\CheckboxInputField('', ['type' => 'checkbox', 'name' => 'fslegcb', 'onchange' => 'allform.fs11.disabled = !allform.fs11.disabled']);
+
+$fs11 = new \It_All\FormFormer\Fieldset([$f11, $f12], ' check to enable fields', ['name' => 'fs11', 'disabled' => 'disabled'], $fs11checkbox);
 
 $fs1 = new \It_All\FormFormer\Fieldset([$f1, $num1, $fs11], 'outer fieldset');
 
-$f5 = new \It_All\FormFormer\Field('progress', 'Progress', ['max' => 100, 'value' => 54]);
-$f6 = new \It_All\FormFormer\Field('meter', 'Meter', ['value' => .3]);
+$progress = new \It_All\FormFormer\Fields\ProgressField('Progress', '', ['max' => 100, 'value' => 54]);
+
+$meter = new \It_All\FormFormer\Fields\MeterField('Meter', '', ['value' => .3]);
 
 $button = new \It_All\FormFormer\Fields\InputField('Undefined Button', ['type' => 'button', 'value' => 'click']);
 
@@ -135,28 +145,9 @@ $week = new \It_All\FormFormer\Fields\InputField('', ['type' => 'week']);
 
 $sub = new \It_All\FormFormer\Fields\InputField('', ['type' => 'submit', 'name' => 'sub', 'value' => 'Go!']);
 
-$nodes = [$fs1, $textList, $cityList, $num2, $output, $f3, $f4, $f5, $f6, $button, $color, $date, $email, $file, $hidden, $image, $range, $pw, $radioFs, $cb, $cb2, $reset, $search, $tel, $time, $url, $week, $sub];
+// top level fields and fieldsets (fields within fieldsets are not included)
+$nodes = [$fs1, $textList, $cityList, $num2, $output, $f3, $f4, $progress, $meter, $button, $color, $date, $email, $file, $hidden, $image, $range, $pw, $radioFs, $cb, $cb2, $reset, $search, $tel, $time, $url, $week, $sub];
 
-$form = new Form($nodes, ['method' => 'post', 'novalidate' => 'novalidate', 'oninput' => 'outputResult.value=parseInt(num1.value)+parseInt(num2.value)']);
+$form = new Form($nodes, ['name' => 'allform', 'method' => 'post', 'novalidate' => 'novalidate', 'oninput' => 'outputResult.value=parseInt(num1.value)+parseInt(num2.value)']);
 
 echo $twig->render('form.twig', array('form' => $form, 'focusFieldId' => $form->getFocusFieldId()));
-
-function validate(array $rules, $values)
-{
-    $success = true;
-    $errors = [];
-    foreach ($rules as $fieldName => $fieldRules) {
-        $errors[$fieldName] = ''; // initialize
-        foreach ($fieldRules as $rule => $ruleContext) {
-            switch ($rule) {
-                case 'required':
-                    $value = (isset($values[$fieldName])) ? trim($values[$fieldName]): '';
-                    if (strlen($value) == 0) {
-                        $success = false;
-                        $errors[$fieldName] = 'required';
-                    }
-            }
-        }
-    }
-    return [$success, $errors];
-}

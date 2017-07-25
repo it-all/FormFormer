@@ -1,7 +1,7 @@
 {
   "name": "it-all/form-former",
-  "description": "HTML5 Form Creation Tool",
-  "license": "GPL-3.0",
+  "description": "HTML5 Form Creation Tool in PHP (7+) and Twig",
+  "license": "MIT",
   "require": {
     "php": ">=7.0",
     "twig/twig": "^2.0"

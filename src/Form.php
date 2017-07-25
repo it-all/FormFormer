@@ -14,6 +14,9 @@ class Form extends NodeHolder
     /** @var  string */
     private $errorMessage;
 
+    /** @var array  */
+    private $attributes;
+
 
     public function __construct(array $nodes, array $attributes = [])
     {

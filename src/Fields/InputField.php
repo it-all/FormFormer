@@ -10,6 +10,7 @@ class InputField extends Field
     /**
      * value and type should be set in attributes, if necessary.
      * if not set, browsers will default type to text
+     * this should not be instantiated directly for radio and checkbox input fields
      */
 
     public function __construct(string $label = '', array $attributes = [], string $errorMessage = '', bool $isLabelBefore = true)

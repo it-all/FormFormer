@@ -51,10 +51,10 @@ input[type="checkbox"] {
     clear: none;
     margin: 5px 0 0 5px;
     /* Larger Checkboxes */
-    -ms-transform: scale(1.6); /* IE */
-    -moz-transform: scale(1.6); /* FF */
-    -webkit-transform: scale(1.6); /* Safari and Chrome */
-    -o-transform: scale(1.6); /* Opera */
+    -ms-transform: scale(1.3); /* IE */
+    -moz-transform: scale(1.3); /* FF */
+    -webkit-transform: scale(1.3); /* Safari and Chrome */
+    -o-transform: scale(1.3); /* Opera */
 }
 
 input[type="radio"] {

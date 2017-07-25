@@ -6,7 +6,7 @@ namespace It_All\FormFormer;
 class NodeHolder
 {
     /** @var  array of Field and Fieldset objects, entered in display order
-     * Fields within Fieldsets are not part of this
+     * Fields within Fieldsets are not nodes
      */
     protected $nodes;
 
