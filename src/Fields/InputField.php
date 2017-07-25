@@ -12,15 +12,15 @@ class InputField extends Field
      * if not set, browsers will default type to text
      */
 
-    public function __construct(string $label = '', array $attributes = [], string $errorMessage = '')
+    public function __construct(string $label = '', array $attributes = [], string $errorMessage = '', bool $isLabelBefore = true)
     {
         //https://www.w3.org/TR/html5/forms.html#states-of-the-type-attribute
-        $validInputTypes = array('hidden', 'text', 'search', 'tel', 'url', 'email', 'password', 'date', 'time', 'number', 'range', 'color', 'checkbox', 'radio', 'file', 'submit', 'image', 'reset', 'button');
+        $validInputTypes = array('hidden', 'text', 'search', 'tel', 'url', 'email', 'password', 'date', 'time', 'number', 'range', 'color', 'checkbox', 'radio', 'file', 'submit', 'image', 'reset', 'button', 'week');
 
         if (isset ($attributes['type']) && !in_array($attributes['type'], $validInputTypes)) {
             throw new \Exception('Invalid input type ' . $attributes['type']);
         }
 
-        parent::__construct('input', $label, $attributes, $errorMessage);
+        parent::__construct('input', $label, $attributes, $errorMessage, $isLabelBefore);
     }
 }

@@ -8,18 +8,16 @@ class SelectOption
     private $text;
     private $attributes;
 
-    public function __construct(string $text, string $value, bool $isSelected = false, bool $isDisabled = false)
+    public function __construct(string $text, string $value, bool $isDisabled = false)
     {
         $this->text = $text;
-        $this->setAttributes($value, $isSelected, $isDisabled);
+        $this->setAttributes($value, $isDisabled);
     }
 
-    private  function setAttributes(string $value, bool $isSelected, bool $isDisabled)
+    private function setAttributes(string $value, bool $isDisabled)
     {
         $this->attributes['value'] = $value;
-        if ($isSelected) {
-            $this->attributes['selected'] = 'selected';
-        }
+
         if ($isDisabled) {
             $this->attributes['disabled'] = 'disabled';
         }
@@ -33,5 +31,10 @@ class SelectOption
     public function getText(): string
     {
         return $this->text;
+    }
+
+    public function getValue(): string
+    {
+        return $this->attributes['value'];
     }
 }

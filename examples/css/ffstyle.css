@@ -6,6 +6,9 @@ form {
     padding: 2em;
     border: .1em solid yellow;
 }
+fieldset {
+    margin-bottom: 1em;
+}
 .ffGroupWrapper {
     padding: .3em;
     border: .1em dashed green;
@@ -44,13 +47,25 @@ input, select, textarea, button, meter, progress, output {
     margin: .1em .5em 1em .1em;
 }
 input[type="checkbox"] {
+    float: left;
+    clear: none;
+    margin: 5px 0 0 5px;
     /* Larger Checkboxes */
-    -ms-transform: scale(1.8); /* IE */
-    -moz-transform: scale(1.8); /* FF */
-    -webkit-transform: scale(1.8); /* Safari and Chrome */
-    -o-transform: scale(1.8); /* Opera */
-    margin: .4em 0 1.1em .6em;
-//padding: 10px;
+    -ms-transform: scale(1.6); /* IE */
+    -moz-transform: scale(1.6); /* FF */
+    -webkit-transform: scale(1.6); /* Safari and Chrome */
+    -o-transform: scale(1.6); /* Opera */
+}
+
+input[type="radio"] {
+    float: left;
+    clear: none;
+    margin: 2px 0 0 2px;
+}
+
+.afterLabel {
+    display: block;
+    margin-left: 1.5em;
 }
 
 input[type="submit"] {
@@ -85,4 +100,8 @@ label {
 
 .ffFieldError {
     border: .1em solid red;
+}
+
+output {
+    width: 4em;
 }

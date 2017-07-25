@@ -1,4 +1,4 @@
-HTML5 Form Creation Tool Written in PHP (requires PHP 7.0+)
+HTML5 Form Creation Tool in PHP (7+) and Twig
 
 w3.org Documentation on HTML5 forms
 

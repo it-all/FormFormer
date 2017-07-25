@@ -10,12 +10,13 @@ class Field
     private $error;
     private $errorMessage;
     protected $attributes;
+    private $isLabelBefore;
 
     /**
      * an error class is not automatically set if $error is true, it can be entered in the $attributes array
      * value should not be in attributes, it
      */
-    protected function __construct(string $tag = 'input', string $label = '', array $attributes = [], string $errorMessage = '')
+    public function __construct(string $tag = 'input', string $label = '', array $attributes = [], string $errorMessage = '', $isLabelBefore = true)
     {
         $validTags = ['input', 'textarea', 'select', 'button', 'meter', 'output', 'progress'];
         $this->tag = trim($tag);
@@ -26,6 +27,7 @@ class Field
         $this->label = trim($label);
         $this->errorMessage = trim($errorMessage);
         $this->error = (strlen($this->errorMessage) > 0) ? true : false;
+        $this->isLabelBefore = $isLabelBefore;
         $this->setAttributes($attributes);
     }
 
@@ -90,5 +92,10 @@ class Field
     public function getErrorMessage(): string
     {
         return $this->errorMessage;
+    }
+
+    public function getIsLabelBefore(): bool
+    {
+        return $this->isLabelBefore;
     }
 }

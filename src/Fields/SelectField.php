@@ -8,12 +8,12 @@ use It_All\FormFormer\Field;
 class SelectField extends Field
 {
     private $optionsOptionGroups;
-//    private $nextOptionKey;
+    private $selectedValue;
 
-    public function __construct(array $optionsOptionGroups, string $label = '', array $attributes = [], string $errorMessage = '')
+    public function __construct(array $optionsOptionGroups, string $label = '', string $selectedValue = '', array $attributes = [], string $errorMessage = '')
     {
         $this->setOptionsOptionGroups($optionsOptionGroups);
-//        $this->nextOptionKey = 0;
+        $this->selectedValue = $selectedValue;
         parent::__construct('select', $label, $attributes, $errorMessage);
     }
 
@@ -33,19 +33,8 @@ class SelectField extends Field
         return $this->optionsOptionGroups;
     }
 
-//    public function getNextOptionOptionGroupType()
-//    {
-//        if (!isset($this->optionsOptionGroups[$this->nextOptionKey])) {
-//            return false;
-//        }
-//
-//        return ($this->optionsOptionGroups[$this->nextOptionKey] instanceof SelectOption) ? 'option' : 'group';
-//    }
-//
-//    public function getNextOptionOptionGroup()
-//    {
-//        $next = $this->optionsOptionGroups[$this->nextOptionKey];
-//        $this->nextOptionKey++;
-//        return $next;
-//    }
+    public function getSelectedValue(): string
+    {
+        return $this->selectedValue;
+    }
 }

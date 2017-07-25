@@ -1,6 +1,10 @@
 {% macro render(form) %}
 
-    <form method="{{ form.getMethod }}"{% if form.getBrowserValidation == false %} novalidate="novalidate"{% endif %}>
+    {% import 'macros/htmlElement.twig' as htmlElement %}
+
+    {{ htmlElement.open('form', form.getAttributes) }}
+
+    {#<form method="{{ form.getMethod }}"{% if form.getBrowserValidation == false %} novalidate="novalidate"{% endif %}>#}
 
         {% if form.getError %}
             <div class="generalFormError">{{ form.getErrorMessage }}</div>

@@ -1,0 +1,37 @@
+{% macro renderOption(field, option) %}
+    {% import 'macros/htmlElement.twig' as htmlElement %}
+
+    {% set optionAttributes = option.getAttributes %}
+
+    {% if field.getSelectedValue == option.getValue %}
+
+        {% set optionAttributes = optionAttributes|merge({'selected': 'selected'}) %}
+
+    {% endif %}
+
+    {{ htmlElement.complete('option', optionAttributes, true, option.getText) }}
+
+{% endmacro %}
+
+
+{% macro renderRecursive(field, optionsOptionGroups) %}
+    {% import _self as selectOptions %}
+    {% import 'macros/htmlElement.twig' as htmlElement %}
+
+    {% for optionOptionGroup in optionsOptionGroups %}
+
+        {% if optionOptionGroup.getText %}  {# it is an option not a group #}
+
+            {{ selectOptions.renderOption(field, optionOptionGroup) }}
+
+        {% else %}  it is an option group
+
+            {{ htmlElement.open('optgroup', optionOptionGroup.getAttributes) }}
+
+            {{ selectOptions.renderRecursive(field, optionOptionGroup.getOptions) }}
+
+            {{ htmlElement.close('optgroup') }}
+
+        {% endif %}
+    {% endfor %}
+{% endmacro %}

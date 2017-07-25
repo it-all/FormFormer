@@ -4,9 +4,9 @@
 
     {% set showRequired = true %}
 
-    {% if field.getLabel %}
+    {% if field.getLabel and field.getIsLabelBefore %}
         {% if field.getId %}
-            <label for="{{ field.getId }}">{{ field.label }}</label>
+            <label for="{{ field.getId }}">{{ field.getLabel }}</label>
         {% else %}
             <label>{{ field.getLabel }}</label>
         {% endif %}
@@ -25,43 +25,38 @@
     {% endif %}
 
     {% if field.getTag == 'select' %}
+        {% import 'macros/selectOptions.twig' as selectOptions %}
+
         {{ htmlElement.open(field.getTag, field.getAttributes) }}
-        {% for optionOptionGroup in field.getOptionOptionGroups %}
-
-            {% if optionOptionGroup.getText %} {# it is an option not a group #}
-                {{ htmlElement.complete('option', optionOptionGroup.getAttributes, true, optionOptionGroup.getText) }}
-
-            {% else %} {# it is an option group #}
-                {{ htmlElement.open('optgroup', optionOptionGroup.getAttributes) }}
-
-                    {% for groupOption in optionOptionGroup.getOptions %}
-                        {{ htmlElement.complete('option', groupOption.getAttributes, true, groupOption.getText) }}
-                    {% endfor %}
-
-                {{ htmlElement.close('optgroup') }}
-            {% endif %}
-        {% endfor %}
-
-        {#{% for k,v in field.getOptions %}#}
-            {#{% set optionAttributes = {'value': v} %}#}
-            {#{% if 'disabled' == v %}#}
-                {#{% set optionAttributes = optionAttributes|merge({'disabled': 'disabled'}) %}#}
-            {#{% endif %}#}
-            {#{% if field.getSelected == v %}#}
-                {#{% set optionAttributes = optionAttributes|merge({'selected': 'selected'}) %}#}
-            {#{% endif %}#}
-            {#{{ htmlElement.complete('option', optionAttributes, true, k) }}#}
-        {#{% endfor %}#}
+            {{ selectOptions.renderRecursive(field, field.getOptionOptionGroups) }}
         {{ htmlElement.close('select') }}
 
     {% elseif field.getTag == 'textarea' %}
         {{ htmlElement.complete('textarea', field.getAttributes, true, field.getValue) }}
 
-    {%  else %}
-        {{ htmlElement.open(field.getTag, field.getAttributes) }}
-        {% if field.tag == 'input' and (field.attributes.type == 'checkbox' or field.attributes.type == 'radio') and field.text %}
-            {{ field.text }}
+    {% elseif field.getTag == 'progress' %}
+        {{ htmlElement.complete('progress', field.getAttributes, true) }}
+
+    {% elseif field.getTag == 'meter' %}
+        {{ htmlElement.complete('meter', field.getAttributes, true, field.getValue) }}
+
+    {% elseif field.getTag == 'output' %}
+        {{ htmlElement.complete('output', field.getAttributes, true) }}
+
+    {% elseif field.getTag == 'input' %}
+
+        {{ htmlElement.open('input', field.getAttributes) }}
+
+        {% if (field.attributes.type == 'radio' or field.attributes.type == 'checkbox') and field.getLabel %}
+            {% if field.getId %}
+                <label for="{{ field.getId }}" class="afterLabel">{{ field.getLabel }}</label>
+            {% else %}
+                <label class="afterLabel">{{ field.getLabel }}</label>
+            {% endif %}
         {% endif %}
+
+    {% else %}
+        {{ htmlElement.complete(field.getTag, field.getAttributes, true) }}
 
     {% endif %}
 
