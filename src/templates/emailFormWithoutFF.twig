@@ -1,0 +1,43 @@
+{%  extends 'base.twig' %}
+
+{%  block htmlBodyContent %}
+
+    <form method="post" novalidate>
+        {% if generalFormError %}
+            <div class="generalFormError">Submission Error</div>
+        {% endif %}
+
+        {#
+        FF code:
+        $email = new \It_All\FormFormer\Fields\InputField('Email', ['type' => 'email', 'id' => 'email', 'name' => 'email', 'value' => $fieldValues['email'], 'required' => 'required'], $fieldErrors['email']);
+        #}
+
+        {# this is the meat of what is saved using FF, with the price of instantiating the classes (mainly fields - see above) #}
+        {% set requiredAttribute = true %}
+        {% if emailFieldError == 'required' %}
+            {% set requiredAttribute = false %}
+        {% endif %}
+
+        <label>Email</label>
+
+        {% if requiredAttribute %}
+        <span class="fieldRequired">required</span>
+        {% endif %}
+
+        {% if emailFieldError %}
+        <span class="ffErrorMsg">{{ emailFieldError }}</span>
+        {% endif %}
+
+        <input type="email" name="email" id="email" value="{{ emailFieldValue }}" {% if requiredAttribute %}required{% endif %}>
+        {# end meat #}
+
+        <input type="submit" name="sub" value="Go!">
+    </form>
+
+    {% block htmlBodyJs %}
+        <script type="text/javascript">
+            window.onload = document.getElementById('email').focus();
+        </script>
+    {% endblock %}
+
+{%  endblock %}
