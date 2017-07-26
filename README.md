@@ -1,8 +1,8 @@
 HTML5 Form Creation Tool in PHP (7+) and Twig
 
-INSTALLATION
-composer require it-all/form-former
-(you may need to add "minimum-stability": "dev" to composer.json)
+INSTALLATION  
+composer require it-all/form-former  
+(or add "it-all/form-former": "dev-master" to composer.json and composer update)  
 copy src/templates/macros/* to your twig environment
 
 FormFormer forms forms. It is decoupled from submission processing and validation. An $errorMessage string can be passed to field constructors for error display. https://github.com/cangelis/simple-validator may be a good option for field validation. The FF examples do show some minimal processing and validation techniques.
