@@ -8,11 +8,11 @@
         {% endif %}
 
         {#
-        FF code:
+        the field instatiation code if using FF:
         $email = new \It_All\FormFormer\Fields\InputField('Email', ['type' => 'email', 'id' => 'email', 'name' => 'email', 'value' => $fieldValues['email'], 'required' => 'required'], $fieldErrors['email']);
         #}
 
-        {# this is the meat of what is saved using FF, with the price of instantiating the classes (mainly fields - see above) #}
+        {# this is the meat of what is saved (for every field) when using FF, with the price of instantiating the classes (mainly fields - see above) #}
         {% set requiredAttribute = true %}
         {% if emailFieldError == 'required' %}
             {% set requiredAttribute = false %}
