@@ -31,9 +31,9 @@ if (isset($_POST['sub'])) {
 
     $fieldValues['email'] = trim($_POST['email']);
 
-    list($validated, $validationErrors) = validate($fieldValidation, $fieldValues);
+    list($valid, $validationErrors) = validate($fieldValidation, $fieldValues);
 
-    if ($validated) {
+    if ($valid) {
         die ('valid submission. time to process :)');
     }
     // if validate returns false, redisplay form with validation errors

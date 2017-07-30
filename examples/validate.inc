@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 function validate(array $rules, $values)
 {
-    $success = true;
+    $valid = true;
     $errors = [];
     foreach ($rules as $fieldName => $fieldRules) {
         $value = (isset($values[$fieldName])) ? trim($values[$fieldName]): '';
@@ -13,14 +13,14 @@ function validate(array $rules, $values)
                 switch ($rule) {
                     case 'required':
                         if (strlen($value) == 0) {
-                            $success = false;
+                            $valid = false;
                             $errors[$fieldName] = 'required';
                         }
                         break;
 
                     case 'email':
                         if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
-                            $success = false;
+                            $valid = false;
                             $errors[$fieldName] = 'invalid';
                         }
                         break;
@@ -29,5 +29,5 @@ function validate(array $rules, $values)
             }
         }
     }
-    return [$success, $errors];
+    return [$valid, $errors];
 }
