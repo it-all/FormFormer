@@ -4,7 +4,7 @@
 
     {{ htmlElementMacro.open('form', form.getAttributes) }}
 
-        {% if form.getError %}
+        {% if form.getErrorMessage %}
             <div class="generalFormError">{{ form.getErrorMessage }}</div>
         {% endif %}
 
