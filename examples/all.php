@@ -20,7 +20,7 @@ $fieldValidation = [
     ]
 ];
 
-// initialize necessary values
+// initialize necessary values (any that are sent to field constructors)
 $fieldValues = [
     'f1name' => '',
     'num1' => '',
@@ -31,7 +31,7 @@ $fieldValues = [
     'textList' => ''
 ];
 
-// initialize necessary errors
+// initialize necessary errors (any that are sent to field constructors)
 $fieldErrors = [
     'f1name' => '',
     'num1' => '',

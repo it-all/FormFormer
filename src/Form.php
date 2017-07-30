@@ -52,16 +52,12 @@ class Form extends NodeHolder
                 }
 
                 if ($node->getError()) {
-                    $this->$fieldErrorMessages[] = $node->getErrorMessage();
+                    $this->fieldErrorMessages[] = $node->getErrorMessage();
                     if (!$this->hasError()) {
                         $this->errorMessage = self::GENERAL_ERROR_MESSAGE;
                         $this->focusFieldId = $node->getId();
                     }
                 }
-//                if (!$this->hasError() && $node->getError()) {
-//                    $this->errorMessage = self::GENERAL_ERROR_MESSAGE;
-//                    $this->focusFieldId = $node->getId();
-//                }
 
             } else {
                 // Fieldset

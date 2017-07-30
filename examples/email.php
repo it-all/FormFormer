@@ -25,6 +25,9 @@ $fieldErrors = [
     'email' => '',
 ];
 
+// initialize
+$formErrorMessage = '';
+
 // submission processing and validation
 if (isset($_POST['sub'])) {
 
@@ -32,14 +35,26 @@ if (isset($_POST['sub'])) {
 
     list($valid, $validationErrors) = validate($fieldValidation, $fieldValues);
 
+    // let's say we need to also verify the email doesn't already exist in our system
+    if (emailExists($fieldValues['email'])) {
+        $formErrorMessage = 'Email Already Exists';
+        $valid = false;
+    }
+
     if ($valid) {
         die ('valid submission. time to process :)');
     }
-    // if validate returns false, redisplay form with validation errors
 
+    // if validate returns false, redisplay form with validation errors
     foreach ($validationErrors as $fieldName => $error) {
         $fieldErrors[$fieldName] = $error;
     }
+}
+
+// set to return true to produce general form error or false to hide
+function emailExists(string $email)
+{
+    return false;
 }
 
 $email = new \It_All\FormFormer\Fields\InputField('Email', ['type' => 'email', 'id' => 'email', 'name' => 'email', 'value' => $fieldValues['email'], 'required' => 'required'], $fieldErrors['email']);
@@ -48,6 +63,6 @@ $sub = new \It_All\FormFormer\Fields\InputField('', ['type' => 'submit', 'name' 
 
 $nodes = [$email, $sub];
 
-$form = new Form($nodes, ['method' => 'post', 'novalidate' => 'novalidate']);
+$form = new Form($nodes, ['method' => 'post', 'novalidate' => 'novalidate'], $formErrorMessage);
 
 echo $twig->render('form.twig', array('form' => $form, 'focusFieldId' => $form->getFocusFieldId()));
