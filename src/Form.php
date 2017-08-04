@@ -90,7 +90,7 @@ class Form extends NodeHolder
         return $this->errorMessage;
     }
 
-    public function getFieldErrorMesssages()
+    public function getFieldErrorMessages()
     {
         return $this->fieldErrorMessages;
     }
