@@ -1,4 +1,4 @@
-HTML5 Form Creation Tool in PHP (7+) and Twig
+HTML/HTML5 Form Creation Tool in PHP (7+) and Twig
 
 WARNING: There may not be any benefit to using this software. It may be better to code HTML forms in plain HTML. Regardless, I learned much about the value of immutable objects.
 
@@ -16,5 +16,5 @@ https://www.w3.org/TR/html5/forms.html
 
 INSTALLATION  
 composer require it-all/form-former  
-(or add "it-all/form-former": "dev-master" to composer.json and composer update)  
+(or add "it-all/form-former": "^1.0" to composer.json and composer update)  
 copy src/templates/macros/* to your twig environment
