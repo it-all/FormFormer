@@ -7,6 +7,9 @@ use It_All\FormFormer\Field;
 
 class InputField extends Field
 {
+    /** https://www.w3.org/TR/html5/forms.html#states-of-the-type-attribute  */
+    const VALID_INPUT_TYPES = ['hidden', 'text', 'search', 'tel', 'url', 'email', 'password', 'date', 'time', 'number', 'range', 'color', 'checkbox', 'radio', 'file', 'submit', 'image', 'reset', 'button', 'week'];
+
     /**
      * value and type should be set in attributes, if necessary.
      * if not set, browsers will default type to text
@@ -15,10 +18,7 @@ class InputField extends Field
 
     public function __construct(string $label = '', array $attributes = [], string $errorMessage = '', bool $isLabelBefore = true)
     {
-        //https://www.w3.org/TR/html5/forms.html#states-of-the-type-attribute
-        $validInputTypes = array('hidden', 'text', 'search', 'tel', 'url', 'email', 'password', 'date', 'time', 'number', 'range', 'color', 'checkbox', 'radio', 'file', 'submit', 'image', 'reset', 'button', 'week');
-
-        if (isset ($attributes['type']) && !in_array($attributes['type'], $validInputTypes)) {
+        if (isset ($attributes['type']) && !in_array($attributes['type'], self::VALID_INPUT_TYPES)) {
             throw new \Exception('Invalid input type ' . $attributes['type']);
         }
 

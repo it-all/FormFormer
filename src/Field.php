@@ -11,15 +11,15 @@ class Field
     private $error;
     private $errorMessage;
     protected $attributes;
+    const VALID_TAGS = ['input', 'textarea', 'select', 'button', 'meter', 'output', 'progress', 'datalist'];
 
     /**
      * an error class is not automatically set if $error is true, it can be entered in the $attributes array
      */
     protected function __construct(string $tag = 'input', string $label = '', array $attributes = [], string $errorMessage = '', $isLabelBefore = true)
     {
-        $validTags = ['input', 'textarea', 'select', 'button', 'meter', 'output', 'progress', 'datalist'];
         $this->tag = trim($tag);
-        if (!in_array($this->tag, $validTags)) {
+        if (!in_array($this->tag, self::VALID_TAGS)) {
             throw new \Exception("Invalid tag ".$this->tag);
         }
 

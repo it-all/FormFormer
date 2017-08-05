@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace It_All\FormFormer;
 
-use It_All\FormFormer\Fields\InputFields\CheckboxInputField;
+use It_All\FormFormer\Fields\InputFields\CheckboxRadioInputField;
 
 class Fieldset extends NodeHolder
 {
@@ -15,7 +15,7 @@ class Fieldset extends NodeHolder
     /** nodes are validated in form constructor (these will be validated as long as fieldset is added to form)
      * https://www.w3.org/wiki/HTML/Elements/fieldset
      */
-    public function __construct(array $nodes, string $legendText='', array $attributes = [], CheckboxInputField $checkbox = null)
+    public function __construct(array $nodes, string $legendText='', array $attributes = [], CheckboxRadioInputField $checkbox = null)
     {
         parent::__construct($nodes);
         $this->legendText = $legendText;

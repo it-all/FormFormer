@@ -10,7 +10,7 @@ class SelectField extends Field
     private $optionsOptionGroups;
     private $selectedValue;
 
-    public function __construct(array $optionsOptionGroups, string $label = '', string $selectedValue = '', array $attributes = [], string $errorMessage = '')
+    public function __construct(array $optionsOptionGroups, string $selectedValue = '', string $label = '', array $attributes = [], string $errorMessage = '')
     {
         $this->setOptionsOptionGroups($optionsOptionGroups);
         $this->selectedValue = $selectedValue;

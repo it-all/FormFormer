@@ -2,9 +2,9 @@ HTML5 Form Creation Tool in PHP (7+) and Twig
 
 WARNING: There may not be any benefit to using this software. It may be better to code HTML forms in plain HTML. Regardless, I learned much about the value of immutable objects.
 
-FormFormer forms HTML (5) forms. It is decoupled from submission processing and validation. An $errorMessage string can be passed to field constructors for error display. The FormFormer examples demonstrate some minimal processing and validation techniques.
+FormFormer forms HTML/HTML5 forms. It is decoupled from submission processing and validation. An $errorMessage string can be passed to field constructors for error display. Some examples demonstrate minimal processing and validation techniques.
 
-The goal was code simplicity and immutable object construction during instantiation, which makes using the API somewhat tedious, as it requires dependencies to be created and injected to constructors (ie Fields to Forms, Options to Select Fields) and knowledge of html form and field element attributes.
+The goal was simple, flexible, and reliable code. Using immutable objects for all classes except the FieldBuilder API (optional) helped maintain simplicity and reliability. The FieldBuilder API helps to make field creation less verbose. Flexibility is provided by incorporating general $attributes array properties into Form and Field classes, requiring the client to have knowledge of HTML attributes, but allowing the potential of breaking the output if invalid attributes are used. 
 
 Please post any questions or feedback. I am particularly interested in whether there are viable use cases for FormFormer. Does it save effort versus simply writing forms in HTML? Is it worth the trade-off of not writing HTML directly, and perhaps not learning or utilising your HTML form-writing skills? Also, there are certainly complexities which FormFormer does not handle. It can be extended and/or adapted over time to handle some, and simply not used for others. For an initial exploration of these questions, please see the example 'emailWithoutFF.php' and its template 'emailFormWithoutFF.twig'. 
 

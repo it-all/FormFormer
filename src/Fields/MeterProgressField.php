@@ -9,7 +9,7 @@ class MeterProgressField extends Field
 {
     private $content;
 
-    public function __construct(string $which = 'meter', string $label = '', string $content = '', array $attributes = [], string $errorMessage = '')
+    public function __construct(string $which = 'meter', string $content = '', string $label = '', array $attributes = [], string $errorMessage = '')
     {
         if ($which != 'meter' && $which != 'progress') {
             throw new \Exception("Type must be meter or progress, not: $which");
