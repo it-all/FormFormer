@@ -46,7 +46,7 @@
         {{ htmlElementMacro.complete('progress', field.getAttributes, true) }}
 
     {% elseif field.getTag == 'meter' %}
-        {{ htmlElementMacro.complete('meter', field.getAttributes, true, field.getValue) }}
+        {{ htmlElementMacro.complete('meter', field.getAttributes, true, field.getContent) }}
 
     {% elseif field.getTag == 'output' %}
         {{ htmlElementMacro.complete('output', field.getAttributes, true) }}

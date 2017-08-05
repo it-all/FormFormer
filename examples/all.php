@@ -102,9 +102,9 @@ $fs11 = new \It_All\FormFormer\Fieldset([$f11, $f12], ' check to enable fields',
 
 $fs1 = new \It_All\FormFormer\Fieldset([$f1, $num1, $fs11], 'outer fieldset');
 
-$progress = new \It_All\FormFormer\Fields\ProgressField('Progress', '', ['max' => 100, 'value' => 54]);
+$progress = new \It_All\FormFormer\Fields\MeterProgressField('progress', 'Progress', '', ['max' => 100, 'value' => 54]);
 
-$meter = new \It_All\FormFormer\Fields\MeterField('Meter', '', ['value' => .3]);
+$meter = new \It_All\FormFormer\Fields\MeterProgressField('meter', 'Meter', 'abc', ['value' => .3]);
 
 $button = new \It_All\FormFormer\Fields\InputField('Undefined Button', ['type' => 'button', 'value' => 'click']);
 
