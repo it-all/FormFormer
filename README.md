@@ -16,8 +16,10 @@ https://www.w3.org/TR/html5/forms.html
 
 INSTALLATION  
 -composer require it-all/form-former  
- or add "it-all/form-former": "^1.0" to composer.json and composer update  
+ or add "it-all/form-former": "^1.1" to composer.json and composer update  
 -Add the src/macros/ directory to your twig loader like:  
 $templateLoader = new Twig_Loader_Filesystem(['templates', '../src/twigMacros']);  
+ or more likely:  
+$templateLoader = new Twig_Loader_Filesystem(['templates', '../vendor/it-all/src/twigMacros']);  
  (see https://twig.symfony.com/doc/2.x/api.html#built-in-loaders)  
  or copy src/macros/* to your twig environment
