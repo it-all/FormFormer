@@ -15,9 +15,9 @@ w3.org Documentation on HTML5 forms:
 https://www.w3.org/TR/html5/forms.html
 
 INSTALLATION  
-composer require it-all/form-former  
-(or add "it-all/form-former": "^1.0" to composer.json and composer update)  
-add the src/macros/ directory to your twig loader like:
-$templateLoader = new Twig_Loader_Filesystem(['templates', '../src/twigMacros']);
-https://twig.symfony.com/doc/2.x/api.html#built-in-loaders
-or copy src/macros/* to your twig environment
+-composer require it-all/form-former  
+ or add "it-all/form-former": "^1.0" to composer.json and composer update  
+-Add the src/macros/ directory to your twig loader like:  
+$templateLoader = new Twig_Loader_Filesystem(['templates', '../src/twigMacros']);  
+ (see https://twig.symfony.com/doc/2.x/api.html#built-in-loaders)  
+ or copy src/macros/* to your twig environment
