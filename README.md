@@ -1,6 +1,6 @@
 HTML/HTML5 Form Creation Tool in PHP (7+) and Twig
 
-WARNING: There may not be any benefit to using this software. It may be better to code HTML forms in plain HTML. Regardless, I learned much about the 'value' of immutable objects.
+WARNING: There may not be any net benefit to using this software. It may be better to code HTML forms in plain HTML, and spend a bit of extra time writing out all form labels and error messages (see examples/templates/emailFormWithoutFF.twig for an example of the code you'll probably be saved from writing for each field when you use FF). Regardless, I learned much about the 'value' of immutable objects.
 
 FormFormer forms HTML/HTML5 forms. It is decoupled from submission processing and validation. An $errorMessage string can be passed to field constructors for error display. Some examples demonstrate minimal processing and validation techniques.
 
