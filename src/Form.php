@@ -20,7 +20,7 @@ class Form extends NodeHolder
     const GENERAL_ERROR_MESSAGE = 'Submission Error';
 
     /** Sending a non-empty $errorMessage causes an error to display, even if there are no field errors, and overrides the GENERAL_ERROR_MESSAGE
-     *
+     * nodes within fieldset nodes are not independent form nodes
      */
     public function __construct(array $nodes, array $attributes = [], string $errorMessage = '')
     {
