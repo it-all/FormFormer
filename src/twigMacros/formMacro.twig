@@ -1,6 +1,6 @@
 {% macro render(form) %}
 
-    {% import 'macros/htmlElement.twig' as htmlElementMacro %}
+    {% import 'htmlElementMacro.twig' as htmlElementMacro %}
 
     {{ htmlElementMacro.open('form', form.getAttributes) }}
 
@@ -8,7 +8,7 @@
             <div class="generalFormError">{{ form.getErrorMessage }}</div>
         {% endif %}
 
-        {% import 'macros/nodes.twig' as nodesMacro %}
+        {% import 'nodesMacro.twig' as nodesMacro %}
 
         {{ nodesMacro.renderRecursive(form.getNodes) }}
 

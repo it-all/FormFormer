@@ -1,6 +1,6 @@
 {% macro render(field) %}
 
-    {% import 'macros/htmlElement.twig' as htmlElementMacro %}
+    {% import 'htmlElementMacro.twig' as htmlElementMacro %}
 
     {% set showRequired = true %}
 
@@ -25,7 +25,7 @@
     {% endif %}
 
     {% if field.getTag == 'select' %}
-        {% import 'macros/selectOptions.twig' as selectOptionsMacro %}
+        {% import 'selectOptionsMacro.twig' as selectOptionsMacro %}
 
         {{ htmlElementMacro.open('select', field.getAttributes) }}
             {{ selectOptionsMacro.renderRecursive(field, field.getOptionOptionGroups) }}

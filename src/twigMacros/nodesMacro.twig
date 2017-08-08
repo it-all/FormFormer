@@ -1,7 +1,7 @@
 {% macro renderRecursive(nodes) %}
     {% import _self as self %}
-    {% import 'macros/htmlElement.twig' as htmlElementMacro %}
-    {% import 'macros/field.twig' as fieldMacro %}
+    {% import 'htmlElementMacro.twig' as htmlElementMacro %}
+    {% import 'fieldMacro.twig' as fieldMacro %}
 
     {% for node in nodes %}
         {% if node.isFieldset %}

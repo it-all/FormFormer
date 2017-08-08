@@ -1,5 +1,5 @@
 {% macro renderOption(field, option) %}
-    {% import 'macros/htmlElement.twig' as htmlElementMacro %}
+    {% import 'htmlElementMacro.twig' as htmlElementMacro %}
 
     {% set optionAttributes = option.getAttributes %}
 
@@ -16,7 +16,7 @@
 
 {% macro renderRecursive(field, optionsOptionGroups) %}
     {% import _self as selectOptionsMacro %}
-    {% import 'macros/htmlElement.twig' as htmlElementMacro %}
+    {% import 'htmlElementMacro.twig' as htmlElementMacro %}
 
     {% for optionOptionGroup in optionsOptionGroups %}
 
