@@ -158,4 +158,4 @@ $nodes = [$fs1, $textList, $cityList, $num2, $output, $f3, $f4, $progress, $mete
 
 $form = new Form($nodes, ['name' => 'allform', 'method' => 'post', 'novalidate' => 'novalidate', 'oninput' => 'outputResult.value=parseInt(num1.value)+parseInt(num2.value)']);
 
-echo $twig->render('form.twig', array('form' => $form, 'focusFieldId' => $form->getFocusFieldId()));
+echo $twig->render('form.twig', ['form' => $form]);

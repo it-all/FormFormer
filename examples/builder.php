@@ -28,4 +28,4 @@ $fields[] = $fb->attr(['type' => 'submit', 'value' => 'Nothing happens'])->build
 
 $form = new Form($fields);
 
-echo $twig->render('form.twig', ['form' => $form, 'focusFieldId' => $form->getFocusFieldId()]);
+echo $twig->render('form.twig', ['form' => $form]);

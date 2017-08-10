@@ -6,9 +6,9 @@
     {{ formMacro.render(form) }}
 
     {% block htmlBodyJs %}
-        {% if focusFieldId %}
+        {% if form.getFocusFieldId %}
             <script type="text/javascript">
-                window.onload = document.getElementById('{{ focusFieldId }}').focus();
+                window.onload = document.getElementById('{{ form.getFocusFieldId }}').focus();
             </script>
         {% endif %}
     {% endblock %}

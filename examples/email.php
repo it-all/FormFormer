@@ -65,4 +65,4 @@ $nodes = [$email, $sub];
 
 $form = new Form($nodes, ['method' => 'post', 'novalidate' => 'novalidate'], $formErrorMessage);
 
-echo $twig->render('form.twig', array('form' => $form, 'focusFieldId' => $form->getFocusFieldId()));
+echo $twig->render('form.twig', ['form' => $form]);
