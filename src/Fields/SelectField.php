@@ -37,4 +37,10 @@ class SelectField extends Field
     {
         return $this->selectedValue;
     }
+
+    // put in for compatibility with input and textarea fields
+    public function getValue(): string
+    {
+        return $this->getSelectedValue();
+    }
 }

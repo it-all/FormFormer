@@ -10,8 +10,15 @@ use It_All\FormFormer\Form;
 
 $name = new \It_All\FormFormer\Fields\InputField('Name', ['id' => 'name', 'name' => 'name', 'value' => 'Hu Man']);
 
-$address = new \It_All\FormFormer\Fields\InputField('Address', ['id' => 'address', 'name' => 'address']);
+$address = new \It_All\FormFormer\Fields\TextareaField('1 way', 'Address');
 
-$form = new Form([$name, $address], ['method' => 'post', 'novalidate' => 'novalidate']);
+$oa = new \It_All\FormFormer\Fields\SelectOption('-- select --', '');
+$o1 = new \It_All\FormFormer\Fields\SelectOption('s1', 's1');
+$o2 = new \It_All\FormFormer\Fields\SelectOption('s2', 's2');
+$state = new \It_All\FormFormer\Fields\SelectField([$oa, $o1, $o2], 's1', 'State', ['id' => 'state']);
+
+$city = new \It_All\FormFormer\Fields\InputField('City', ['id' => 'city', 'name' => 'city']);
+
+$form = new Form([$name, $address, $state, $city], ['method' => 'post', 'novalidate' => 'novalidate']);
 
 echo $twig->render('form.twig', ['form' => $form]);
