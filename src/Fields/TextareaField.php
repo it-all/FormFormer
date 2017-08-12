@@ -15,7 +15,7 @@ class TextareaField extends Field
         parent::__construct('textarea', $label, $attributes, $errorMessage);
     }
 
-    public function getValue()
+    public function getValue(): string
     {
         return $this->value;
     }

@@ -24,4 +24,9 @@ class InputField extends Field
 
         parent::__construct('input', $label, $attributes, $errorMessage, $isLabelBefore);
     }
+
+    public function getValue(): string
+    {
+        return (isset($this->attributes['value'])) ? $this->attributes['value'] : '';
+    }
 }

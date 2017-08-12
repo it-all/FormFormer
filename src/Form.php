@@ -5,11 +5,11 @@ namespace It_All\FormFormer;
 
 class Form extends NodeHolder
 {
-    /** @var  string. set to first field or first field with error */
-    private $focusFieldId;
-
     /** @var array  */
     private $attributes;
+
+    /** @var  string. set to first field or first field with error. note, can also be '' if no field errors and all fields have values */
+    private $focusFieldId;
 
     /** @var  string */
     private $errorMessage;
@@ -26,8 +26,11 @@ class Form extends NodeHolder
     {
         $this->attributes = $attributes;
         parent::__construct($nodes);
-        $this->errorMessage = ''; // initialize
-        $this->fieldErrorMessages = []; // initialize
+
+        // initialize properties
+        $this->focusFieldId = '';
+        $this->errorMessage = '';
+        $this->fieldErrorMessages = [];
 
         $this->setFieldErrorsAndFocus($nodes);
         if (strlen($errorMessage) > 0) {
@@ -37,7 +40,8 @@ class Form extends NodeHolder
     }
 
     // also validates incoming array to be Field or Fieldset objects
-    // on the first field error, set focusField and error properties
+    // focusField set to first field without value if exists
+    // on the first field error, set focusField (overwrite if already set) and error properties
     // recursive when encounters a fieldset
     private function setFieldErrorsAndFocus(array $nodes)
     {
@@ -47,7 +51,7 @@ class Form extends NodeHolder
             }
 
             if ($node instanceof Field) {
-                if (!isset($this->focusFieldId)) {
+                if (method_exists($node, 'getValue') && strlen($node->getValue()) == 0 && strlen($this->focusFieldId) == 0) {
                     $this->focusFieldId = $node->getId();
                 }
 
@@ -65,7 +69,6 @@ class Form extends NodeHolder
                     $this->setFieldErrorsAndFocus($node->getNodes());
                 }
             }
-
         }
     }
 
