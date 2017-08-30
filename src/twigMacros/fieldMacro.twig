@@ -55,7 +55,7 @@
 
         {{ htmlElementMacro.open('input', field.getAttributes) }}
 
-        {% if (field.attributes.type == 'radio' or field.attributes.type == 'checkbox') and field.getLabel %}
+        {% if field.getIsLabelBefore == false and field.getLabel %}
             {% if field.getId %}
                 <label for="{{ field.getId }}" class="afterLabel">{{ field.getLabel }}</label>
             {% else %}

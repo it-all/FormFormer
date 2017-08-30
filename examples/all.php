@@ -132,14 +132,15 @@ $range = new InputField('', ['type' => 'range', 'min' => 0, 'max' => 100, 'step'
 
 $pw = new InputField('', ['type' => 'password', 'placeholder' => 'enter password']);
 
-$radio1 = new CheckboxRadioInputField('a', ['type' => 'radio', 'name' => 'radioGroup', 'value' => 'a', 'id' => 'radio1']);
-$radio2 = new CheckboxRadioInputField('b', ['type' => 'radio', 'name' => 'radioGroup', 'value' => 'b', 'id' => 'radio2']);
-$radio3 = new CheckboxRadioInputField('c', ['type' => 'radio', 'name' => 'radioGroup', 'value' => 'c', 'id' => 'radio3']);
+$radio1 = new CheckboxRadioInputField('a', ['type' => 'radio', 'name' => 'radioGroup', 'value' => 'a', 'id' => 'radio1', 'class' => 'inlineField']);
+$radio2 = new CheckboxRadioInputField('b', ['type' => 'radio', 'name' => 'radioGroup', 'value' => 'b', 'id' => 'radio2', 'class' => 'inlineField']);
+$radio3 = new CheckboxRadioInputField('c', ['type' => 'radio', 'name' => 'radioGroup', 'value' => 'c', 'id' => 'radio3', 'class' => 'inlineField']);
 $radioFs = new Fieldset([$radio1, $radio2, $radio3], 'Choose 1');
 
-$cb = new CheckboxRadioInputField('Check if you agree', ['type' => 'checkbox']);
+// note can use either Class
+$cb = new InputField('Check if you agree', ['type' => 'checkbox']);
 
-$cb2 = new CheckboxRadioInputField('Uncheck if you disagree', ['type' => 'checkbox', 'checked' => 'checked']);
+$cb2 = new CheckboxRadioInputField('Uncheck if you disagree', ['type' => 'checkbox', 'checked' => 'checked', 'class' => 'inlineField']);
 
 $reset = new InputField('', ['type' => 'reset']);
 
