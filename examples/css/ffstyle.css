@@ -39,9 +39,6 @@ fieldset {
 #ffFormError {
     color: red;
 }
-.ffFieldError {
-    border: .2em solid red;
-}
 .ffErrorMsg {
     color: red;
 }
