@@ -4,7 +4,7 @@ DISCLAIMER: There may not be any net benefit to using FormFormer (FF) for most a
 
 FormFormer forms HTML/HTML5 forms. It is decoupled from submission processing and validation. An $errorMessage string can be passed to field constructors and/or form constructor for error display. Some of the examples do demonstrate minimal processing and validation techniques.
 
-The goal was simple yet flexible code. Using immutable objects for all classes except FieldBuilder (optionally makes field instantiation less verbose) helps maintain simplicity. Flexibility is provided by incorporating general $attributes array properties into Form and Field classes, requiring the client to have knowledge of HTML attributes and also potentially outputting HTML errors, as most attributes are not validated. 
+The goal was simple yet flexible code. Using immutable objects for all classes except FieldBuilder (optionally makes field instantiation less verbose) helps maintain simplicity. Flexibility is provided by incorporating general $attributes array properties into Form and Field classes, requiring the client to have knowledge of HTML attributes and also potentially outputting invalid HTML, as most attributes are not validated. 
 
 There are certainly complexities which FF does not handle, especially related to formatting. It can be extended and/or adapted over time to handle some, and simply not used for others.
 
