@@ -10,7 +10,7 @@ There are certainly complexities which FF does not handle, especially related to
 
 INSTALLATION  
 -composer require it-all/form-former  
- or add "it-all/form-former": "^2.0" to composer.json and composer update  
+ or add "it-all/form-former": "^2.0" to composer.json and run composer update  
 
 SECURITY  
 Since FormFormer is limited to forming forms, rather than receiving, filtering, or validating data, there is little to no security implemented in the source code (/src). There is some minimal security in /examples/init.inc in terms of escaping user input data that will potentially be displayed in HTML (in the case of a validation error). Minimal validation is performed in the examples. For a good php validator package, please see https://github.com/vlucas/valitron.  
