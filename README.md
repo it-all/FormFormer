@@ -8,6 +8,10 @@ The goal was simple yet flexible code. Using immutable objects for all classes e
 
 There are certainly complexities which FF does not handle, especially related to formatting. It can be extended and/or adapted over time to handle some, and simply not used for others.
 
+INSTALLATION  
+-composer require it-all/form-former  
+ or add "it-all/form-former": "^2.0" to composer.json and composer update  
+
 SECURITY  
 Since FormFormer is limited to forming forms, rather than receiving, filtering, or validating data, there is little to no security implemented in the source code (/src). There is some minimal security in /examples/init.inc in terms of escaping user input data that will potentially be displayed in HTML (in the case of a validation error). Minimal validation is performed in the examples. For a good php validator package, please see https://github.com/vlucas/valitron.  
 https://www.martinfowler.com/articles/web-security-basics.html  
@@ -16,7 +20,3 @@ https://www.owasp.org/index.php/PHP_Security_Cheat_Sheet#File_uploads
 
 w3.org Documentation on HTML5 forms:  
 https://www.w3.org/TR/html5/forms.html
-
-INSTALLATION  
--composer require it-all/form-former  
- or add "it-all/form-former": "^2.0" to composer.json and composer update  
