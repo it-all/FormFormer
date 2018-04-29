@@ -20,7 +20,7 @@ class Field
     {
         $this->tag = trim($tag);
         if (!in_array($this->tag, self::VALID_TAGS)) {
-            throw new \Exception("Invalid tag ".$this->tag);
+            throw new \Exception("Invalid tag " . $this->tag);
         }
 
         $this->label = trim($label);
@@ -35,7 +35,7 @@ class Field
         $this->attributes = [];
 
         foreach ($attributes as $aName => $aValue) {
-            $this->setAttribute((string) $aName, (string) $aValue);
+            $this->setAttribute((string)$aName, (string)$aValue);
         }
     }
 
@@ -96,5 +96,59 @@ class Field
     public function getIsLabelBefore(): bool
     {
         return $this->isLabelBefore;
+    }
+
+    protected function generateLabel(): string
+    {
+        $label = '';
+        if (strlen($this->label) > 0) {
+            $label .= '<label';
+            if (strlen($this->getId()) > 0) {
+                $label .= ' for="' . $this->getId() . '"';
+            }
+            if (!$this->isLabelBefore) {
+                $label .= ' class="afterLabel"';
+            }
+            $label .= '>' . $this->label . '</label>';
+        }
+
+        return $label;
+    }
+
+    protected function generateErrorAndRequired(): string
+    {
+        $html = '';
+        $showRequired = true;
+
+        if ($this->getError()) {
+            if ($this->errorMessage == 'required') {
+                $showRequired = false;
+            }
+            $html .= '<span class="ffErrorMsg">'.$this->errorMessage.'</span>';
+        }
+
+        if ($showRequired && $this->getIsRequired()) {
+            $html .= '<span class="fieldRequired">required</span>';
+        }
+
+        return $html;
+    }
+
+    protected function generateDescriptors(): string
+    {
+        return $this->generateLabel().$this->generateErrorAndRequired();
+    }
+
+    public function generate(): string
+    {
+        $html = '';
+        if ($this->isLabelBefore) {
+            $html .= $this->generateDescriptors();
+        }
+        $html .= UserInterfaceHelper::generateElement($this->tag, $this->attributes);
+        if (!$this->isLabelBefore) {
+            $html .= $this->generateDescriptors();
+        }
+        return $html;
     }
 }

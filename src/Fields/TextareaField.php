@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace It_All\FormFormer\Fields;
 
 use It_All\FormFormer\Field;
+use It_All\FormFormer\UserInterfaceHelper;
 
 class TextareaField extends Field
 {
@@ -18,5 +19,12 @@ class TextareaField extends Field
     public function getValue(): string
     {
         return $this->value;
+    }
+
+    public function generate(): string
+    {
+        $html = $this->generateDescriptors();
+        $html .= UserInterfaceHelper::generateElement($this->tag, $this->attributes, true, $this->value);
+        return $html;
     }
 }

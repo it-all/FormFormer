@@ -64,5 +64,5 @@ $sub = new \It_All\FormFormer\Fields\InputField('', ['type' => 'submit', 'name' 
 $nodes = [$email, $sub];
 
 $form = new Form($nodes, ['method' => 'post', 'novalidate' => 'novalidate'], $formErrorMessage);
-
-echo $twig->render('form.twig', ['form' => $form]);
+$template = new Template($form);
+$template->render();

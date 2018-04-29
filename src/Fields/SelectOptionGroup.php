@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace It_All\FormFormer\Fields;
 
+use It_All\FormFormer\UserInterfaceHelper;
+
 class SelectOptionGroup
 {
     private $options;
@@ -40,5 +42,19 @@ class SelectOptionGroup
     public function getOptions(): array
     {
         return $this->options;
+    }
+
+    private function generateOptions(string $selectedValue = ''): string
+    {
+        $html = '';
+        foreach ($this->options as $option) {
+            $html .= $option->generate($selectedValue);
+        }
+        return $html;
+    }
+
+    public function generate(string $selectedValue = ''): string
+    {
+        return UserInterfaceHelper::generateElement('optgroup', $this->attributes, true, $this->generateOptions($selectedValue));
     }
 }

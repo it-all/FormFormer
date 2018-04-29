@@ -18,4 +18,14 @@ class NodeHolder
     {
         return $this->nodes;
     }
+
+    protected function generateNodes(): string
+    {
+        $nodesHtml = '';
+        foreach ($this->nodes as $node) {
+            $nodesHtml .= $node->generate();
+        }
+        return $nodesHtml;
+    }
+
 }

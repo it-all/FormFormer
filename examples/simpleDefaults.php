@@ -20,5 +20,5 @@ $state = new \It_All\FormFormer\Fields\SelectField([$oa, $o1, $o2], 's1', 'State
 $city = new \It_All\FormFormer\Fields\InputField('City', ['id' => 'city', 'name' => 'city']);
 
 $form = new Form([$name, $address, $state, $city], ['method' => 'post', 'novalidate' => 'novalidate']);
-
-echo $twig->render('form.twig', ['form' => $form]);
+$template = new Template($form);
+$template->render();

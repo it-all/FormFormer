@@ -15,7 +15,7 @@ $fields = [];
 $fields[] = $fb->build();
 $fields[] = $fb->label('field 2')->err('Test Error')->build();
 $fields[] = $fb->attr(['type' => 'number'])->build();
-$fields[] = $fb->attr(['type' => 'checkbox'])->label('world is oval')->build();
+$fields[] = $fb->attr(['type' => 'checkbox', 'class' => 'inlineField'])->label('world is oval')->build();
 
 $opt0 = new SelectOption('-- select --', '');
 $opt1 = new SelectOption('text1', 'val1');
@@ -27,5 +27,5 @@ $fields[] = $fb->tag('textarea')->textVal('add more text please')->build();
 $fields[] = $fb->attr(['type' => 'submit', 'value' => 'Nothing happens'])->build();
 
 $form = new Form($fields);
-
-echo $twig->render('form.twig', ['form' => $form]);
+$template = new Template($form);
+$template->render();

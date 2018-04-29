@@ -72,7 +72,7 @@ class Form extends NodeHolder
         }
     }
 
-    public function hasError()
+    public function hasError(): bool
     {
         return strlen($this->errorMessage) > 0;
     }
@@ -83,18 +83,33 @@ class Form extends NodeHolder
         return $this->focusFieldId;
     }
 
-    public function getAttributes()
+    public function getAttributes(): array
     {
         return $this->attributes;
     }
 
-    public function getErrorMessage()
+    public function getErrorMessage(): string
     {
         return $this->errorMessage;
     }
 
-    public function getFieldErrorMessages()
+    public function getFieldErrorMessages(): array
     {
         return $this->fieldErrorMessages;
     }
+
+    public function generate(): string
+    {
+        $html = '<form'.UserInterfaceHelper::generateElementAttributes($this->attributes).'>';
+
+        if ($this->hasError()) {
+           $html .= '<div class="generalFormError">'.$this->getErrorMessage().'</div>';
+        }
+
+        $html .= $this->generateNodes();
+        $html .= '</form>';
+
+        return $html;
+    }
+
 }

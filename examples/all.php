@@ -37,7 +37,7 @@ $fieldValues = [
     'num2' => '',
     'f11name' => '',
     'f12name' => '',
-    'sel1' => '',
+    'sel1' => 'val2', // prepopulate
     'textList' => ''
 ];
 
@@ -106,9 +106,9 @@ $f12 = new InputField('Number Field', ['type' => 'number']);
 
 $fs11checkbox = new CheckboxRadioInputField('', ['type' => 'checkbox', 'name' => 'fslegcb', 'onchange' => 'allform.fs11.disabled = !allform.fs11.disabled']);
 
-$fs11 = new Fieldset([$f11, $f12], ' inner fieldset (check to enable fields)', ['name' => 'fs11', 'disabled' => 'disabled'], $fs11checkbox);
+$fs11 = new Fieldset([$f11, $f12], ['name' => 'fs11', 'disabled' => 'disabled'], true, ' inner fieldset (check to enable fields)', $fs11checkbox);
 
-$fs1 = new Fieldset([$f1, $num1, $fs11], 'outer fieldset');
+$fs1 = new Fieldset([$f1, $num1, $fs11], [], true, 'outer fieldset');
 
 $progress = new MeterProgressField('progress', '', 'Progress', ['max' => 100, 'value' => 54]);
 
@@ -135,10 +135,10 @@ $pw = new InputField('', ['type' => 'password', 'placeholder' => 'enter password
 $radio1 = new CheckboxRadioInputField('a', ['type' => 'radio', 'name' => 'radioGroup', 'value' => 'a', 'id' => 'radio1', 'class' => 'inlineField']);
 $radio2 = new CheckboxRadioInputField('b', ['type' => 'radio', 'name' => 'radioGroup', 'value' => 'b', 'id' => 'radio2', 'class' => 'inlineField']);
 $radio3 = new CheckboxRadioInputField('c', ['type' => 'radio', 'name' => 'radioGroup', 'value' => 'c', 'id' => 'radio3', 'class' => 'inlineField']);
-$radioFs = new Fieldset([$radio1, $radio2, $radio3], 'Choose 1');
+$radioFs = new Fieldset([$radio1, $radio2, $radio3], [], true, 'Choose 1');
 
 // note can use either Class
-$cb = new InputField('Check if you agree', ['type' => 'checkbox']);
+$cb = new InputField('Check if you agree', ['type' => 'checkbox', 'class' => 'inlineField'], '', false);
 
 $cb2 = new CheckboxRadioInputField('Uncheck if you disagree', ['type' => 'checkbox', 'checked' => 'checked', 'class' => 'inlineField']);
 
@@ -159,4 +159,5 @@ $nodes = [$fs1, $textList, $cityList, $num2, $output, $f3, $f4, $progress, $mete
 
 $form = new Form($nodes, ['name' => 'allform', 'method' => 'post', 'novalidate' => 'novalidate', 'oninput' => 'outputResult.value=parseInt(num1.value)+parseInt(num2.value)']);
 
-echo $twig->render('form.twig', ['form' => $form]);
+$template = new Template($form);
+$template->render();

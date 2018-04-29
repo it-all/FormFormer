@@ -7,25 +7,21 @@ use It_All\FormFormer\Fields\InputFields\CheckboxRadioInputField;
 
 class Fieldset extends NodeHolder
 {
-    public $isFieldset = true; // for twig
-    private $legendText;
     private $attributes;
-    private $checkbox;
+    private $hasLegend;
+    private $legendText;
+    private $legendCheckbox;
 
     /** nodes are validated in form constructor (these will be validated as long as fieldset is added to form)
      * https://www.w3.org/wiki/HTML/Elements/fieldset
      */
-    public function __construct(array $nodes, string $legendText='', array $attributes = [], CheckboxRadioInputField $checkbox = null)
+    public function __construct(array $nodes, array $attributes = [], bool $hasLegend = false, string $legendText = '', CheckboxRadioInputField $legendCheckbox = null)
     {
         parent::__construct($nodes);
-        $this->legendText = $legendText;
         $this->attributes = $attributes;
-        $this->checkbox = $checkbox;
-    }
-
-    public function getLegendText(): string
-    {
-        return $this->legendText;
+        $this->hasLegend = $hasLegend;
+        $this->legendText = $legendText;
+        $this->legendCheckbox = $legendCheckbox;
     }
 
     public function getAttributes(): array
@@ -33,8 +29,44 @@ class Fieldset extends NodeHolder
         return $this->attributes;
     }
 
-    public function getCheckbox()
+    public function hasLegend(): bool
     {
-        return $this->checkbox;
+        return $this->hasLegend;
+    }
+
+    public function getLegendText(): string
+    {
+        return $this->legendText;
+    }
+
+    public function hasCheckbox(): bool
+    {
+        return $this->legendCheckbox != null;
+    }
+
+    public function getCheckbox(): ?CheckboxRadioInputField
+    {
+        return $this->legendCheckbox;
+    }
+
+    public function generate(): string
+    {
+        $html = '<fieldset'.UserInterfaceHelper::generateElementAttributes($this->attributes).'>';
+
+        if ($this->hasLegend) {
+            $html .= '<legend>';
+            if (strlen($this->legendText) > 0) {
+                $html .= $this->legendText;
+            }
+            if ($this->legendCheckbox !== null) {
+                $html .= $this->legendCheckbox->generate();
+            }
+            $html .= '</legend>';
+        }
+
+        $html .= $this->generateNodes();
+
+        $html .= '</fieldset>';
+        return $html;
     }
 }

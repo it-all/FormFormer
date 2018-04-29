@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace It_All\FormFormer\Fields;
 
 use It_All\FormFormer\Field;
+use It_All\FormFormer\UserInterfaceHelper;
 
 class SelectField extends Field
 {
@@ -42,5 +43,22 @@ class SelectField extends Field
     public function getValue(): string
     {
         return $this->getSelectedValue();
+    }
+
+    private function generateOptionsOptionGroups(): string
+    {
+        $html = '';
+        foreach ($this->optionsOptionGroups as $optionOptionGroup) {
+            $html .= $optionOptionGroup->generate($this->selectedValue);
+        }
+        return $html;
+    }
+
+    public function generate(): string
+    {
+        $html = $this->generateLabel();
+        $html .= $this->generateErrorAndRequired();
+        $html .= UserInterfaceHelper::generateElement($this->tag, $this->attributes, true, $this->generateOptionsOptionGroups());
+        return $html;
     }
 }

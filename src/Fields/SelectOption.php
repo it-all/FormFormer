@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace It_All\FormFormer\Fields;
 
+use It_All\FormFormer\UserInterfaceHelper;
+
 class SelectOption
 {
     private $text;
@@ -36,5 +38,18 @@ class SelectOption
     public function getValue(): string
     {
         return $this->attributes['value'];
+    }
+
+    private function addSelectedAttribute()
+    {
+        $this->attributes['selected'] = 'selected';
+    }
+
+    public function generate(string $selectedValue = ''): string
+    {
+        if (strlen($selectedValue) > 0 && $selectedValue == $this->getValue()) {
+            $this->addSelectedAttribute();
+        }
+        return UserInterfaceHelper::generateElement('option', $this->attributes, true, $this->text);
     }
 }

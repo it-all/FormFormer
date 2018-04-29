@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace It_All\FormFormer\Fields;
 
 use It_All\FormFormer\Field;
+use It_All\FormFormer\UserInterfaceHelper;
 
 class InputField extends Field
 {
@@ -28,5 +29,18 @@ class InputField extends Field
     public function getValue(): string
     {
         return (isset($this->attributes['value'])) ? $this->attributes['value'] : '';
+    }
+
+    public function generate(): string
+    {
+        $html = '';
+        if ($this->getIsLabelBefore()) {
+            $html .= $this->generateDescriptors();
+        }
+        $html .= UserInterfaceHelper::generateElement($this->tag, $this->attributes, false);
+        if (!$this->getIsLabelBefore()) {
+            $html .= $this->generateDescriptors();
+        }
+        return $html;
     }
 }

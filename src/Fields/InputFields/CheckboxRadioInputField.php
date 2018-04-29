@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace It_All\FormFormer\Fields\InputFields;
+use It_All\FormFormer\UserInterfaceHelper;
 
 /**
  * Class CheckboxRadioInputField

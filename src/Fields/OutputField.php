@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace It_All\FormFormer\Fields;
 
 use It_All\FormFormer\Field;
+use It_All\FormFormer\UserInterfaceHelper;
 
 class OutputField extends Field
 {
