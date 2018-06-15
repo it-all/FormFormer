@@ -27,6 +27,9 @@ $fieldValidation = [
     ],
     'sel1' => [
         'required' => true
+    ],
+    'radioGroup' => [
+        'required' => true
     ]
 ];
 
@@ -38,7 +41,8 @@ $fieldValues = [
     'f11name' => '',
     'f12name' => '',
     'sel1' => 'val2', // prepopulate
-    'textList' => ''
+    'textList' => '',
+    'radioGroup' => ''
 ];
 
 // initialize necessary errors (any that are sent to field constructors)
@@ -49,7 +53,8 @@ $fieldErrors = [
     'f11name' => '',
     'f12name' => '',
     'sel1' => '',
-    'textList' => ''
+    'textList' => '',
+    'radioGroup' => null
 ];
 
 // submission processing and validation
@@ -132,10 +137,27 @@ $range = new InputField('', ['type' => 'range', 'min' => 0, 'max' => 100, 'step'
 
 $pw = new InputField('', ['type' => 'password', 'placeholder' => 'enter password']);
 
-$radio1 = new CheckboxRadioInputField('a', ['type' => 'radio', 'name' => 'radioGroup', 'value' => 'a', 'id' => 'radio1', 'class' => 'inlineField']);
-$radio2 = new CheckboxRadioInputField('b', ['type' => 'radio', 'name' => 'radioGroup', 'value' => 'b', 'id' => 'radio2', 'class' => 'inlineField']);
-$radio3 = new CheckboxRadioInputField('c', ['type' => 'radio', 'name' => 'radioGroup', 'value' => 'c', 'id' => 'radio3', 'class' => 'inlineField']);
-$radioFs = new Fieldset([$radio1, $radio2, $radio3], [], true, 'Choose 1');
+$radioGroupAttributes = [
+    'type' => 'radio',
+    'name' => 'radioGroup',
+    'class' => 'inlineField'
+];
+$radio1Attributes = array_merge($radioGroupAttributes, ['value' => 'a', 'id' => 'radio1']);
+if ($fieldValues['radioGroup'] == 'a') {
+    $radio1Attributes['checked'] = 'checked';
+}
+$radio2Attributes = array_merge($radioGroupAttributes, ['value' => 'b', 'id' => 'radio2']);
+if ($fieldValues['radioGroup'] == 'b') {
+    $radio2Attributes['checked'] = 'checked';
+}
+$radio3Attributes = array_merge($radioGroupAttributes, ['value' => 'c', 'id' => 'radio3']);
+if ($fieldValues['radioGroup'] == 'c') {
+    $radio3Attributes['checked'] = 'checked';
+}
+$radio1 = new CheckboxRadioInputField('a', $radio1Attributes);
+$radio2 = new CheckboxRadioInputField('b', $radio2Attributes);
+$radio3 = new CheckboxRadioInputField('c', $radio3Attributes);
+$radioFs = new Fieldset([$radio1, $radio2, $radio3], [], true, 'Choose 1', null, $fieldErrors['radioGroup']);
 
 // note can use either Class
 $cb = new InputField('Check if you agree', ['type' => 'checkbox', 'class' => 'inlineField'], '', false);
