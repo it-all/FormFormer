@@ -99,11 +99,6 @@ label {
     margin-bottom: 1em;
 }
 
-.formErrorMsg {
-    display: inline;
-    color: red;
-}
-
 .ffFieldError {
     border: .1em solid red;
 }

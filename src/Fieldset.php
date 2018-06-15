@@ -72,7 +72,7 @@ class Fieldset extends NodeHolder
                 $html .= $this->legendCheckbox->generate();
             }
             if ($errorMessage = $this->getErrorMessage()) {
-                $html .= '&nbsp;<span class="formErrorMsg">'.$errorMessage.'</span>';
+                $html .= '&nbsp;<span class="ffErrorMsg">'.$errorMessage.'</span>';
             }
             $html .= '</legend>';
         }
