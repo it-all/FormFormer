@@ -11,17 +11,19 @@ class Fieldset extends NodeHolder
     private $hasLegend;
     private $legendText;
     private $legendCheckbox;
+    private $errorMessage;
 
     /** nodes are validated in form constructor (these will be validated as long as fieldset is added to form)
      * https://www.w3.org/wiki/HTML/Elements/fieldset
      */
-    public function __construct(array $nodes, array $attributes = [], bool $hasLegend = false, string $legendText = '', CheckboxRadioInputField $legendCheckbox = null)
+    public function __construct(array $nodes, array $attributes = [], bool $hasLegend = false, string $legendText = '', CheckboxRadioInputField $legendCheckbox = null, string $errorMessage = null)
     {
         parent::__construct($nodes);
         $this->attributes = $attributes;
         $this->hasLegend = $hasLegend;
         $this->legendText = $legendText;
         $this->legendCheckbox = $legendCheckbox;
+        $this->errorMessage = $errorMessage;
     }
 
     public function getAttributes(): array
@@ -49,17 +51,28 @@ class Fieldset extends NodeHolder
         return $this->legendCheckbox;
     }
 
+    public function getErrorMessage(): ?string
+    {
+        if ($this->errorMessage !== null && mb_strlen($this->errorMessage) > 0) {
+            return $this->errorMessage;
+        }
+        return null;
+    }
+
     public function generate(): string
     {
         $html = '<fieldset'.UserInterfaceHelper::generateElementAttributes($this->attributes).'>';
 
-        if ($this->hasLegend) {
+        if ($this->hasLegend || $errorMessage = $this->getErrorMessage()) {
             $html .= '<legend>';
-            if (strlen($this->legendText) > 0) {
+            if ($this->hasLegend && mb_strlen($this->legendText) > 0) {
                 $html .= $this->legendText;
             }
-            if ($this->legendCheckbox !== null) {
+            if ($this->hasLegend && $this->legendCheckbox !== null) {
                 $html .= $this->legendCheckbox->generate();
+            }
+            if ($errorMessage = $this->getErrorMessage()) {
+                $html .= '&nbsp;<span class="formErrorMsg">'.$errorMessage.'</span>';
             }
             $html .= '</legend>';
         }
