@@ -26,7 +26,7 @@ class Field
         $this->label = trim($label);
         $this->isLabelBefore = $isLabelBefore;
         $this->errorMessage = trim($errorMessage);
-        $this->error = (strlen($this->errorMessage) > 0) ? true : false;
+        $this->error = (mb_strlen($this->errorMessage) > 0) ? true : false;
         $this->setAttributes($attributes);
     }
 
@@ -101,9 +101,9 @@ class Field
     protected function generateLabel(): string
     {
         $label = '';
-        if (strlen($this->label) > 0) {
+        if (mb_strlen($this->label) > 0) {
             $label .= '<label';
-            if (strlen($this->getId()) > 0) {
+            if (mb_strlen($this->getId()) > 0) {
                 $label .= ' for="' . $this->getId() . '"';
             }
             if (!$this->isLabelBefore) {

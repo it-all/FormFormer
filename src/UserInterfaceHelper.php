@@ -17,7 +17,7 @@ class UserInterfaceHelper
 
     public static function generateElement(string $name, array $attributes, bool $close = true, string $content = ''): string
     {
-        if (!$close && strlen($content) > 0) {
+        if (!$close && mb_strlen($content) > 0) {
             throw new \Exception('Content not allowed in unclosed element');
         }
 

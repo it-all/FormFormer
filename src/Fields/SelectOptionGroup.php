@@ -29,7 +29,7 @@ class SelectOptionGroup
     private function setAttributes(string $label)
     {
         $this->attributes = [];
-        if (strlen($label) > 0) {
+        if (mb_strlen($label) > 0) {
             $this->attributes['label'] = $label;
         }
     }

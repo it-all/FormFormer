@@ -47,7 +47,7 @@ class SelectOption
 
     public function generate(string $selectedValue = ''): string
     {
-        if (strlen($selectedValue) > 0 && $selectedValue == $this->getValue()) {
+        if (mb_strlen($selectedValue) > 0 && $selectedValue == $this->getValue()) {
             $this->addSelectedAttribute();
         }
         return UserInterfaceHelper::generateElement('option', $this->attributes, true, $this->text);

@@ -9,10 +9,10 @@ function validate(array $rules, $values)
         $value = (isset($values[$fieldName])) ? trim($values[$fieldName]): '';
         $errors[$fieldName] = ''; // initialize
         foreach ($fieldRules as $rule => $ruleContext) {
-            if (strlen($errors[$fieldName]) == 0) { // will stop processing field upon its first error
+            if (mb_strlen($errors[$fieldName]) == 0) { // will stop processing field upon its first error
                 switch ($rule) {
                     case 'required':
-                        if (strlen($value) == 0) {
+                        if (mb_strlen($value) == 0) {
                             $valid = false;
                             $errors[$fieldName] = 'required';
                         }

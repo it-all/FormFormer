@@ -33,7 +33,7 @@ class Form extends NodeHolder
         $this->fieldErrorMessages = [];
 
         $this->setFieldErrorsAndFocus($nodes);
-        if (strlen($errorMessage) > 0) {
+        if (mb_strlen($errorMessage) > 0) {
             $this->errorMessage = $errorMessage;
         }
 
@@ -51,7 +51,7 @@ class Form extends NodeHolder
             }
 
             if ($node instanceof Field) {
-                if (method_exists($node, 'getValue') && strlen($node->getValue()) == 0 && strlen($this->focusFieldId) == 0) {
+                if (method_exists($node, 'getValue') && mb_strlen($node->getValue()) == 0 && mb_strlen($this->focusFieldId) == 0) {
                     $this->focusFieldId = $node->getId();
                 }
 
@@ -74,7 +74,7 @@ class Form extends NodeHolder
 
     public function hasError(): bool
     {
-        return strlen($this->errorMessage) > 0;
+        return mb_strlen($this->errorMessage) > 0;
     }
 
     /** returns string id of focus field or '' if no id */

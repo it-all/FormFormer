@@ -17,7 +17,7 @@ class Template
             $this->setBodyContent($form->generate());
 
             $focusFieldId = $form->getFocusFieldId();
-            if (strlen($focusFieldId) > 0) {
+            if (mb_strlen($focusFieldId) > 0) {
                 $bodyJs = <<< EOL
 <script type="text/javascript">
     window.onload = document.getElementById('$focusFieldId').focus();
