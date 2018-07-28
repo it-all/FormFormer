@@ -16,7 +16,7 @@ class Fieldset extends NodeHolder
     /** nodes are validated in form constructor (these will be validated as long as fieldset is added to form)
      * https://www.w3.org/wiki/HTML/Elements/fieldset
      */
-    public function __construct(array $nodes, array $attributes = [], bool $hasLegend = false, string $legendText = '', CheckboxRadioInputField $legendCheckbox = null, string $errorMessage = null)
+    public function __construct(array $nodes, array $attributes = [], bool $hasLegend = false, string $legendText = '', CheckboxRadioInputField $legendCheckbox = null, string $errorMessage = '')
     {
         parent::__construct($nodes);
         $this->attributes = $attributes;
@@ -51,19 +51,21 @@ class Fieldset extends NodeHolder
         return $this->legendCheckbox;
     }
 
-    public function getErrorMessage(): ?string
+    public function getErrorMessage(): string
     {
-        if ($this->errorMessage !== null && mb_strlen($this->errorMessage) > 0) {
-            return $this->errorMessage;
-        }
-        return null;
+        return $this->errorMessage;
+    }
+
+    public function hasError(): bool
+    {
+        return mb_strlen($this->errorMessage) > 0;
     }
 
     public function generate(): string
     {
         $html = '<fieldset'.UserInterfaceHelper::generateElementAttributes($this->attributes).'>';
 
-        if ($this->hasLegend || $errorMessage = $this->getErrorMessage()) {
+        if ($this->hasLegend || $this->hasError()) {
             $html .= '<legend>';
             if ($this->hasLegend && mb_strlen($this->legendText) > 0) {
                 $html .= $this->legendText;
@@ -71,8 +73,8 @@ class Fieldset extends NodeHolder
             if ($this->hasLegend && $this->legendCheckbox !== null) {
                 $html .= $this->legendCheckbox->generate();
             }
-            if ($errorMessage = $this->getErrorMessage()) {
-                $html .= '&nbsp;<span class="ffErrorMsg">'.$errorMessage.'</span>';
+            if ($this->hasError()) {
+                $html .= '&nbsp;<span class="ffErrorMsg">'.$this->getErrorMessage().'</span>';
             }
             $html .= '</legend>';
         }

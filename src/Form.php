@@ -66,6 +66,9 @@ class Form extends NodeHolder
             } else {
                 // Fieldset
                 if (!$this->hasError()) {
+                    if ($node->hasError()) {
+                        $this->errorMessage = self::GENERAL_ERROR_MESSAGE;
+                    }
                     $this->setFieldErrorsAndFocus($node->getNodes());
                 }
             }
