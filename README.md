@@ -10,7 +10,7 @@ There are certainly complexities which FF does not handle, especially related to
 
 INSTALLATION  
 -composer require it-all/form-former  
- or add "it-all/form-former": "^2.0" to composer.json and run composer update  
+ or add "it-all/form-former": "^2.1" to composer.json and run composer update  
 
 SECURITY  
 Since FormFormer is limited to forming forms, rather than receiving, filtering, or validating data, there is little security implemented in the source code (/src). In order to prevent XSS, the htmlentities function (https://www.php.net/htmlentities) is used when outputting html element attribute values (which may contain user input if client code validates input and repopulates for failures) and html element content values (for example &lt;textarea&gt;escaped content&lt;/textarea&gt;).  
