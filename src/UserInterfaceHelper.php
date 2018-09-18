@@ -9,7 +9,9 @@ class UserInterfaceHelper
     {
         $attributesString = '';
         foreach ($attributes as $aKey => $aValue) {
-            $attributesString .= ' '.$aKey.'="'.$aValue.'"';
+            $attributeName = strtolower($aKey);
+            $attributeValue = htmlentities($aValue, ENT_QUOTES | ENT_HTML5);
+            $attributesString .= " $attributeName=\"$attributeValue\"";
         }
 
         return $attributesString;
@@ -23,7 +25,7 @@ class UserInterfaceHelper
 
         $html = '<'.$name.self::generateElementAttributes($attributes).'>';
         if ($close) {
-            $html .= $content.'</'.$name.'>';
+            $html .= htmlentities($content, ENT_QUOTES | ENT_HTML5).'</'.$name.'>';
         }
         return $html;
     }
