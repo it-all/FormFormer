@@ -54,7 +54,7 @@ $fieldErrors = [
     'f12name' => '',
     'sel1' => '',
     'textList' => '',
-    'radioGroup' => null
+    'radioGroup' => '',
 ];
 
 // submission processing and validation
