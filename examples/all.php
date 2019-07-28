@@ -25,7 +25,7 @@ $fieldValidation = [
     'num1' => [
         'required' => true
     ],
-    'sel1' => [
+    'sel_1' => [
         'required' => true
     ],
     'radioGroup' => [
@@ -40,9 +40,10 @@ $fieldValues = [
     'num2' => '',
     'f11name' => '',
     'f12name' => '',
-    'sel1' => 'val2', // prepopulate
+    'sel_1' => 'val2', // prepopulate
     'textList' => '',
-    'radioGroup' => ''
+    'radioGroup' => '',
+    'textarea1' => 'initial text',
 ];
 
 // initialize necessary errors (any that are sent to field constructors)
@@ -52,7 +53,7 @@ $fieldErrors = [
     'num2' => '',
     'f11name' => '',
     'f12name' => '',
-    'sel1' => '',
+    'sel_1' => '',
     'textList' => '',
     'radioGroup' => '',
 ];
@@ -90,7 +91,7 @@ $num2 = new InputField('Number 2', ['type' => 'number', 'id' => 'num2', 'name' =
 
 $output = new OutputField('', 'Number 1 + Number 2', ['name' => 'outputResult', 'for' => 'num1 num2']);
 
-$f3 = new TextareaField('initial text', 'Enter Some Text', ['rows' => 4, 'cols' => 50]);
+$f3 = new TextareaField($fieldValues['textarea1'], 'Enter Some Text', ['name' => 'textarea1', 'rows' => 4, 'cols' => 50]);
 
 $opt0 = new SelectOption('-- select --', '', true, true);
 $opt1 = new SelectOption('text1', 'val1');
@@ -103,7 +104,7 @@ $opt22 = new SelectOption('text22', 'val22');
 $opt33 = new SelectOption('text33', 'val33');
 $optgrp2 = new SelectOptionGroup([$opt11, $opt22, $opt33], 'optgroup2');
 
-$f4 = new SelectField([$opt0, $optgrp1, $optgrp2], $fieldValues['sel1'], 'select', ['name' => 'sel1', 'required' => 'required'], $fieldErrors['sel1']);
+$f4 = new SelectField([$opt0, $optgrp1, $optgrp2], $fieldValues['sel_1'], 'select', ['name' => 'sel_1', 'required' => 'required'], $fieldErrors['sel_1']);
 
 $f11 = new InputField('Favorite Flavor', ['id' => 'f11id', 'name' => 'f11name'], $fieldErrors['f11name']);
 

@@ -55,6 +55,6 @@ class SelectOptionGroup
 
     public function generate(string $selectedValue = ''): string
     {
-        return UserInterfaceHelper::generateElement('optgroup', $this->attributes, true, $this->generateOptions($selectedValue));
+        return UserInterfaceHelper::generateElement('optgroup', $this->attributes, true, $this->generateOptions($selectedValue), false);
     }
 }

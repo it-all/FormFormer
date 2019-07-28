@@ -58,7 +58,7 @@ class SelectField extends Field
     {
         $html = $this->generateLabel();
         $html .= $this->generateErrorAndRequired();
-        $html .= UserInterfaceHelper::generateElement($this->tag, $this->attributes, true, $this->generateOptionsOptionGroups());
+        $html .= UserInterfaceHelper::generateElement($this->tag, $this->attributes, true, $this->generateOptionsOptionGroups(), false);
         return $html;
     }
 }

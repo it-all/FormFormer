@@ -33,7 +33,7 @@ class DatalistField extends Field
     public function generate(): string
     {
         $html = $this->generateDescriptors();
-        $html .= UserInterfaceHelper::generateElement($this->tag, $this->attributes, true, $this->generateOptions());
+        $html .= UserInterfaceHelper::generateElement($this->tag, $this->attributes, true, $this->generateOptions(), false);
         return $html;
     }
 }

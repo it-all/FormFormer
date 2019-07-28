@@ -10,14 +10,14 @@ class UserInterfaceHelper
         $attributesString = '';
         foreach ($attributes as $aKey => $aValue) {
             $attributeName = strtolower($aKey);
-            $attributeValue = htmlentities($aValue, ENT_QUOTES | ENT_HTML5);
+            $attributeValue = htmlentities($aValue, ENT_QUOTES);
             $attributesString .= " $attributeName=\"$attributeValue\"";
         }
 
         return $attributesString;
     }
 
-    public static function generateElement(string $name, array $attributes, bool $close = true, string $content = ''): string
+    public static function generateElement(string $name, array $attributes, bool $close = true, string $content = '', bool $htmlEntitiesContent = true): string
     {
         if (!$close && mb_strlen($content) > 0) {
             throw new \Exception('Content not allowed in unclosed element');
@@ -25,7 +25,8 @@ class UserInterfaceHelper
 
         $html = '<'.$name.self::generateElementAttributes($attributes).'>';
         if ($close) {
-            $html .= htmlentities($content, ENT_QUOTES | ENT_HTML5).'</'.$name.'>';
+            $html .= $htmlEntitiesContent ? htmlentities($content, ENT_QUOTES) : $content;
+            $html .= '</'.$name.'>';
         }
         return $html;
     }
