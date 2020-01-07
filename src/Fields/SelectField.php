@@ -11,11 +11,11 @@ class SelectField extends Field
     private $optionsOptionGroups;
     private $selectedValue;
 
-    public function __construct(array $optionsOptionGroups, string $selectedValue = '', string $label = '', array $attributes = [], string $errorMessage = '')
+    public function __construct(array $optionsOptionGroups, string $selectedValue = '', string $label = '', array $attributes = [], string $errorMessage = '', bool $isLabelBefore = true, bool $squelchRequired = false)
     {
         $this->setOptionsOptionGroups($optionsOptionGroups);
         $this->selectedValue = $selectedValue;
-        parent::__construct('select', $label, $attributes, $errorMessage);
+        parent::__construct('select', $label, $attributes, $errorMessage, $isLabelBefore, $squelchRequired);
     }
 
     private function setOptionsOptionGroups(array $optionsOptionGroups)

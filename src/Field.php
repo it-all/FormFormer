@@ -11,12 +11,14 @@ class Field
     private $error;
     private $errorMessage;
     protected $attributes;
+    private $squelchRequired;
     const VALID_TAGS = ['input', 'textarea', 'select', 'button', 'meter', 'output', 'progress', 'datalist'];
+    const REQUIRED_NOTICE_TEXT = 'required';
 
     /**
      * an error class is not automatically set if $error is true, it can be entered in the $attributes array
      */
-    protected function __construct(string $tag = 'input', string $label = '', array $attributes = [], string $errorMessage = '', $isLabelBefore = true)
+    protected function __construct(string $tag = 'input', string $label = '', array $attributes = [], string $errorMessage = '', bool $isLabelBefore = true, bool $squelchRequired = false)
     {
         $this->tag = trim($tag);
         if (!in_array($this->tag, self::VALID_TAGS)) {
@@ -26,6 +28,7 @@ class Field
         $this->label = trim($label);
         $this->isLabelBefore = $isLabelBefore;
         $this->errorMessage = trim($errorMessage);
+        $this->squelchRequired = $squelchRequired;
         $this->error = (mb_strlen($this->errorMessage) > 0) ? true : false;
         $this->setAttributes($attributes);
     }
@@ -118,17 +121,17 @@ class Field
     protected function generateErrorAndRequired(): string
     {
         $html = '';
-        $showRequired = true;
+        $showRequired = !$this->squelchRequired; // will not be shown if squelched or if error message is REQUIRED_NOTICE_TEXT
 
         if ($this->getError()) {
-            if ($this->errorMessage == 'required') {
+            if ($this->errorMessage == self::REQUIRED_NOTICE_TEXT) {
                 $showRequired = false;
             }
             $html .= '<span class="ffErrorMsg">'.$this->errorMessage.'</span>';
         }
 
         if ($showRequired && $this->getIsRequired()) {
-            $html .= '<span class="fieldRequired">required</span>';
+            $html .= '<span class="fieldRequired">'.self::REQUIRED_NOTICE_TEXT.'</span>';
         }
 
         return $html;

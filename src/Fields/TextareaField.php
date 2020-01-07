@@ -10,10 +10,10 @@ class TextareaField extends Field
 {
     private $value;
 
-    public function __construct(string $value = '', string $label = '', array $attributes = [], string $errorMessage = '')
+    public function __construct(string $value = '', string $label = '', array $attributes = [], string $errorMessage = '', bool $isLabelBefore = true, bool $squelchRequired = false)
     {
         $this->value = $value;
-        parent::__construct('textarea', $label, $attributes, $errorMessage);
+        parent::__construct('textarea', $label, $attributes, $errorMessage, $isLabelBefore, $squelchRequired);
     }
 
     public function getValue(): string

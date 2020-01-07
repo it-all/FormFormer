@@ -17,13 +17,13 @@ class InputField extends Field
      * this should not be instantiated directly for radio and checkbox input fields
      */
 
-    public function __construct(string $label = '', array $attributes = [], string $errorMessage = '', bool $isLabelBefore = true)
+    public function __construct(string $label = '', array $attributes = [], string $errorMessage = '', bool $isLabelBefore = true, bool $squelchRequired = false)
     {
         if (isset ($attributes['type']) && !in_array($attributes['type'], self::VALID_INPUT_TYPES)) {
             throw new \Exception('Invalid input type ' . $attributes['type']);
         }
 
-        parent::__construct('input', $label, $attributes, $errorMessage, $isLabelBefore);
+        parent::__construct('input', $label, $attributes, $errorMessage, $isLabelBefore, $squelchRequired);
     }
 
     public function getValue(): string
