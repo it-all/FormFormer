@@ -11,7 +11,10 @@ class SelectField extends Field
     private $optionsOptionGroups;
     private $selectedValue;
 
-    public function __construct(array $optionsOptionGroups, string $selectedValue = '', string $label = '', array $attributes = [], string $errorMessage = '', bool $isLabelBefore = true, bool $squelchRequired = false)
+    /**
+     * if $selectedValue is null then selected will not be set for any option (the browser may select the first non-disabled option by default)
+     */
+    public function __construct(array $optionsOptionGroups, ?string $selectedValue = null, string $label = '', array $attributes = [], string $errorMessage = '', bool $isLabelBefore = true, bool $squelchRequired = false)
     {
         $this->setOptionsOptionGroups($optionsOptionGroups);
         $this->selectedValue = $selectedValue;
@@ -34,7 +37,7 @@ class SelectField extends Field
         return $this->optionsOptionGroups;
     }
 
-    public function getSelectedValue(): string
+    public function getSelectedValue(): ?string
     {
         return $this->selectedValue;
     }
@@ -42,7 +45,7 @@ class SelectField extends Field
     // put in for compatibility with input and textarea fields
     public function getValue(): string
     {
-        return $this->getSelectedValue();
+        return ($this->getSelectedValue() === null) ? '' : $this->getSelectedValue();
     }
 
     private function generateOptionsOptionGroups(): string

@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+// phpinfo(); die();
 
 // form example with every type of field
 
@@ -93,7 +94,7 @@ $output = new OutputField('', 'Number 1 + Number 2', ['name' => 'outputResult', 
 
 $f3 = new TextareaField($fieldValues['textarea1'], 'Enter Some Text', ['name' => 'textarea1', 'rows' => 4, 'cols' => 50]);
 
-$opt0 = new SelectOption('-- select --', '', true, true);
+$opt0 = new SelectOption('-- select --', '', true);
 $opt1 = new SelectOption('text1', 'val1');
 $opt2 = new SelectOption('text2', 'val2');
 $opt3 = new SelectOption('text3', 'val3');
@@ -104,7 +105,12 @@ $opt22 = new SelectOption('text22', 'val22');
 $opt33 = new SelectOption('text33', 'val33');
 $optgrp2 = new SelectOptionGroup([$opt11, $opt22, $opt33], 'optgroup2');
 
-$f4 = new SelectField([$opt0, $optgrp1, $optgrp2], $fieldValues['sel_1'], 'select', ['name' => 'sel_1', 'required' => 'required'], $fieldErrors['sel_1']);
+$select = new SelectField([$opt0, $optgrp1, $optgrp2], $fieldValues['sel_1'], 'select', ['name' => 'sel_1', 'required' => 'required'], $fieldErrors['sel_1']);
+
+$opt0 = new SelectOption('-- select --', '', true);
+$opt1 = new SelectOption('opt1', 'opt1');
+$opt2 = new SelectOption('opt2', 'opt2');
+$selectPlaceholder = new SelectField([$opt0, $opt1, $opt2], '');
 
 $f11 = new InputField('Favorite Flavor', ['id' => 'f11id', 'name' => 'f11name'], $fieldErrors['f11name']);
 
@@ -178,7 +184,7 @@ $week = new InputField('', ['type' => 'week']);
 $sub = new InputField('', ['type' => 'submit', 'name' => 'sub', 'value' => 'Go!']);
 
 // top level fields and fieldsets (fields within fieldsets are not included)
-$nodes = [$fs1, $textList, $cityList, $num2, $output, $f3, $f4, $progress, $meter, $button, $color, $date, $email, $file, $hidden, $image, $range, $pw, $radioFs, $cb, $cb2, $reset, $search, $tel, $time, $url, $week, $sub];
+$nodes = [$fs1, $textList, $cityList, $num2, $output, $f3, $select, $selectPlaceholder, $progress, $meter, $button, $color, $date, $email, $file, $hidden, $image, $range, $pw, $radioFs, $cb, $cb2, $reset, $search, $tel, $time, $url, $week, $sub];
 
 $form = new Form($nodes, ['name' => 'allform', 'method' => 'post', 'novalidate' => 'novalidate', 'oninput' => 'outputResult.value=parseInt(num1.value)+parseInt(num2.value)']);
 
