@@ -10,11 +10,11 @@ class Template
     private $bodyContent='';
     private $bodyJs='';
 
-    public function __construct(?\It_All\FormFormer\Form $form = null)
+    public function __construct(?\It_All\FormFormer\Form $form = null, ?string $preFormHtml = null)
     {
         if ($form !== null) {
             $this->form = $form;
-            $this->setBodyContent($form->generate());
+            $this->setBodyContent($form->generate(), $preFormHtml);
 
             $focusFieldId = $form->getFocusFieldId();
             if (mb_strlen($focusFieldId) > 0) {
@@ -43,9 +43,12 @@ EOL;
         $this->headJs = $headJs;
     }
 
-    public function setBodyContent(string $bodyContent)
+    public function setBodyContent(string $bodyContent, ?string $preFormHtml = null)
     {
-        $this->bodyContent = $bodyContent;
+        if ($preFormHtml != null) {
+            $this->bodyContent .= $preFormHtml;
+        }
+        $this->bodyContent .= $bodyContent;
     }
 
     public function setBodyJs(string $bodyJs)
