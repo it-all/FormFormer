@@ -12,8 +12,10 @@ use It_All\FormFormer\Fields\SelectOption;
 $fb = new FieldBuilder();
 
 $fields = [];
-$fields[] = $fb->build();
-$fields[] = $fb->label('field 2')->err('Test Error')->build();
+
+$fields[] = $fb->tag('input')->label('Name')->build();
+$fields[] = $fb->build(); // blank input field
+$fields[] = $fb->label('field 2')->err('Test Error')->build(); // causes Submission Error top error message too
 $fields[] = $fb->attr(['type' => 'number'])->build();
 $fields[] = $fb->attr(['type' => 'checkbox', 'class' => 'inlineField'])->label('world is oval')->build();
 
