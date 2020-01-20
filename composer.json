@@ -3,7 +3,8 @@
   "description": "HTML5 Form Creation Tool in PHP (7.1+)",
   "license": "MIT",
   "require": {
-    "php": ">=7.1"
+    "php": ">=7.1",
+    "vlucas/valitron": "@stable"
   },
   "autoload": {
     "psr-4": {
