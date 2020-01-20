@@ -1,28 +1,26 @@
-HTML/HTML5 Form Creation Tool in PHP (7.1+)
-
-DISCLAIMER: There may not be any net benefit to using FormFormer (FF) for most applications. It may be better to code HTML forms in HTML :), so as to enhance your HTML forms knowledge. The work saved by using FF is mostly in writing form labels and error messages. Applications that incorporate forms with many fields, or automatically generated fields (such as ORMs) are most likely to benefit.
-
-FormFormer forms HTML/HTML5 forms. It is decoupled from submission processing and validation. An $errorMessage string can be passed to field constructors and/or form constructor for error display. (Some of the included examples do demonstrate minimal processing and validation techniques.)
-
-The goal was simple yet flexible code. Using immutable objects for all classes, except FieldBuilder (which optionally makes field instantiation less verbose), helps maintain simplicity. Flexibility is provided by incorporating general $attributes array properties into Form and Field classes, requiring the client to have knowledge of HTML attributes and also potentially outputting invalid HTML, as most attributes are not validated. 
-
-There are certainly complexities which FF does not handle, especially related to formatting. It can be extended and/or adapted over time to handle some, and simply not used for others.
-
+HTML/HTML5 Form Creation & Validation Tool in PHP (7.1+)  
+  
+FormFormer forms HTML/HTML5 forms, and, optionally, validates their submitted field values using [Valitron Validator](https://github.com/vlucas/valitron). In case of validation error(s), forms are redisplayed with populated field values and error messages. FormFormer is decoupled from processing form submission after validation.  
+  
+Please see examples/valitron.php for a minimal form with validation.  
+  
+The goal was simple yet flexible code. Using immutable objects for all classes, except FieldBuilder (which optionally makes field instantiation less verbose), helps maintain simplicity. Flexibility is provided by incorporating general $attributes array properties into Form and Field classes, requiring the client programmer to have knowledge of HTML attributes and also potentially outputting invalid HTML, as most attributes are not validated.  
+  
+There are certainly complexities which FF does not handle, especially related to formatting. It can be extended and/or adapted over time to handle some, and simply not used for others.  
+  
 INSTALLATION  
--composer require it-all/form-former  
- or add "it-all/form-former": "^2.1" to composer.json and run composer update  
-
+composer require it-all/form-former  
+  
+USAGE  
+Please see examples.  
+  
 SECURITY  
-Since FormFormer is limited to forming forms, rather than receiving, filtering, or validating data, there is little security implemented in the source code (/src). In order to prevent XSS, the htmlentities function (https://www.php.net/htmlentities) is used when outputting html element attribute values (which may contain user input if client code validates input and repopulates for failures) and html element content values (for example &lt;textarea&gt;escaped content&lt;/textarea&gt;).  
-  
-Minimal validation is performed in the examples.  
-  
-For a good php validator package, please see https://github.com/vlucas/valitron.  
+In order to prevent XSS, the [htmlentities function](https://www.php.net/htmlentities) is used when outputting html element attribute values (which may contain user input if client code validates input and repopulates for failures) and html element content values (for example &lt;textarea&gt;escaped content&lt;/textarea&gt;).  
   
 Further reference:  
 https://www.martinfowler.com/articles/web-security-basics.html  
 https://stackoverflow.com/questions/129677/whats-the-best-method-for-sanitizing-user-input-with-php#130323  
-https://www.owasp.org/index.php/PHP_Security_Cheat_Sheet#File_uploads
-
+https://www.owasp.org/index.php/PHP_Security_Cheat_Sheet#File_uploads  
+  
 w3.org Documentation on HTML5 forms:  
 https://www.w3.org/TR/html5/forms.html
