@@ -16,7 +16,7 @@ class Fieldset extends NodeHolder
     /** nodes are validated in form constructor (these will be validated as long as fieldset is added to form)
      * https://www.w3.org/wiki/HTML/Elements/fieldset
      */
-    public function __construct(array $nodes, array $attributes = [], bool $hasLegend = false, string $legendText = '', CheckboxRadioInputField $legendCheckbox = null, string $errorMessage = '')
+    public function __construct(array $nodes, array $attributes = [], bool $hasLegend = false, string $legendText = '', ?CheckboxRadioInputField $legendCheckbox = null, string $errorMessage = '')
     {
         parent::__construct($nodes);
         $this->attributes = $attributes;
